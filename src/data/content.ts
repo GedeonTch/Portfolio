@@ -9,7 +9,7 @@ export const content: ContentData = {
     name: "Gédéon Cibanvunya",
     title: "Étudiant en Informatique de Gestion, orientation Cybersécurité — Université Lumière de Bujumbura (ULBU), Burundi",
     tagline: "Passionné par l'analyse SOC, le pentest et le développement logiciel de sécurité",
-    photoPath: "/photo-placeholder.svg", // Remplacer par votre photo de profil réelle
+    photoPath: "/photo.jpg",
   },
 
   // Section Compétences
