@@ -16,12 +16,12 @@
 body.soc {
   --background: #11161c;
   --foreground: #edf1f2;
-  --accent: #e08a72;
-  --accent-secondary: #f0b19d;
-  --border: #3a3032;
-  --card-bg: #1a2229;
-  --text-muted: #a9b2b7;
-  --signal: #e2b66e;
+  --accent: #f08a72;
+  --accent-secondary: #ffc0a9;
+  --border: #5a3938;
+  --card-bg: #211d24;
+  --text-muted: #c0b6b7;
+  --signal: #f2c36d;
 }
 
 * { box-sizing: border-box; }
@@ -71,6 +71,25 @@ body::before {
 .network-line { stroke: var(--accent); stroke-width: 1; fill: none; opacity: .55; }
 .network-node { fill: var(--background); stroke: var(--accent); stroke-width: 1.5; }
 .cursor-blink { animation: blink 1s steps(1) infinite; }
+.profile-frame {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 7%, transparent), 0 0 42px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.audit-stream {
+  height: 9.5rem;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, transparent, black 13%, black 87%, transparent);
+}
+.audit-track {
+  animation: audit-rise 18s linear infinite;
+}
+@keyframes audit-rise {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .audit-track { animation: none; }
+}
 @keyframes blink { 50% { opacity: 0; } }
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--background); }

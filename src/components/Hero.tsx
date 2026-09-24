@@ -16,7 +16,7 @@ const logs = [
 export default function Hero() {
   const { theme } = useTheme();
   const [displayText, setDisplayText] = useState('');
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [, setReducedMotion] = useState(false);
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     setReducedMotion(reduce);
@@ -34,7 +34,16 @@ export default function Hero() {
   return <section id="hero" className="relative min-h-screen overflow-hidden px-5 pb-20 pt-36">
     <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_.95fr]">
       <div className="relative z-10">
-        <p className="section-kicker mb-5">Security operations / Bujumbura, Burundi</p>
+      <div className="mb-7 flex items-center gap-4">
+        <div className="profile-frame h-20 w-20 overflow-hidden rounded-full border-2 bg-[var(--card-bg)]">
+          <img src={content.hero.photoPath} alt="Portrait de Gédéon Cibanvunya" className="h-full w-full object-cover" />
+        </div>
+        <div className="font-mono text-[10px] uppercase tracking-[.18em] text-[var(--text-muted)]">
+          <span className="mb-1 block text-[var(--accent)]">Identité vérifiée</span>
+          Profil cybersécurité
+        </div>
+      </div>
+      <p className="section-kicker mb-5">Security operations / Bujumbura, Burundi</p>
         <h1 className="max-w-4xl font-mono text-4xl font-medium leading-tight tracking-[-.04em] text-[var(--foreground)] sm:text-6xl lg:text-7xl">
           {displayText}<span className="cursor-blink text-[var(--accent)]">_</span>
         </h1>
@@ -52,7 +61,11 @@ export default function Hero() {
         <NetworkGraphic accent={accent} />
         <div className="surface absolute bottom-3 left-0 w-full max-w-sm p-4 font-mono text-[10px] leading-6 text-[var(--text-muted)] sm:left-8">
           <div className="mb-2 flex items-center justify-between border-b border-[var(--border)] pb-2 text-[var(--accent)]"><span>LIVE / AUDIT STREAM</span><span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" /></div>
-          {logs.slice(0, reducedMotion ? 3 : 5).map((log) => <div key={log}>{log}</div>)}
+          <div className="audit-stream">
+            <div className="audit-track">
+              {[...logs, ...logs].map((log, index) => <div key={`${log}-${index}`} className="whitespace-nowrap">{log}</div>)}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -61,8 +74,9 @@ export default function Hero() {
 
 function NetworkGraphic({ accent }: { accent: string }) {
   return <svg aria-label="Réseau de nœuds de sécurité" role="img" viewBox="0 0 520 400" className="h-full w-full">
+    <path d="M180 168 238 135 296 168 296 235 238 269 180 235Z" fill="var(--card-bg)" stroke={accent} strokeWidth="1.5" opacity=".92" />
+    <path d="M238 152v98M198 187h80M198 217h80" className="network-line" />
     <g className="network-line"><path d="M90 95 220 52 350 112 455 70M90 95l25 180 180-56 105 86M220 52l75 167 160-149M350 112l-55 107 115 84M115 275l-70 58M295 219l-40 130M410 305l65 43" /></g>
     {[[90,95],[220,52],[350,112],[455,70],[115,275],[295,219],[410,305],[255,349],[45,333]].map(([cx,cy]) => <g key={`${cx}-${cy}`}><circle cx={cx} cy={cy} r="6" className="network-node" /><circle cx={cx} cy={cy} r="13" fill={accent} opacity=".08" /></g>)}
-    <path d="M180 168 238 135 296 168 296 235 238 269 180 235Z" fill="none" stroke={accent} strokeWidth="1.5" opacity=".8" /><path d="M238 153v97M197 187h82M197 217h82" className="network-line" />
   </svg>;
 }
