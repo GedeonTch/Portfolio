@@ -1,3 +1,5 @@
+'use client';
+
 // Bouton de changement de thème
 import { useTheme } from '@/lib/theme-context';
 import { motion } from 'framer-motion';

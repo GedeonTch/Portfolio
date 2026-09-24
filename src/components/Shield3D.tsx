@@ -3,11 +3,11 @@
 
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Mesh, Vector3 } from 'three';
+import { Group } from 'three';
 import { useTheme } from '@/lib/theme-context';
 
 export function Shield() {
-  const meshRef = useRef<Mesh>(null);
+  const meshRef = useRef<Group>(null);
   const { theme } = useTheme();
   const [scanPosition, setScanPosition] = useState(0);
 

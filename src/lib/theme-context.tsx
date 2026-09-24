@@ -1,6 +1,6 @@
-// Contexte React pour la gestion des thèmes
 'use client';
 
+// Contexte React pour la gestion des thèmes
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Theme } from '@/types';
 
@@ -36,11 +36,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const toggleTheme = () => {
     setTheme(prev => prev === 'terminal' ? 'soc' : 'terminal');
   };
-
-  // Éviter le flash de thème au chargement
-  if (!mounted) {
-    return <>{children}</>;
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
