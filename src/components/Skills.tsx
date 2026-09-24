@@ -1,55 +1,12 @@
-// Section Compétences
 'use client';
 
 import { motion } from 'framer-motion';
 import { content } from '@/data/content';
-import { useTheme } from '@/lib/theme-context';
 
 export default function Skills() {
-  const { theme } = useTheme();
-  const accentColor = theme === 'terminal' ? 'text-[#00ff9d]' : 'text-[#ff6b6b]';
-  const borderColor = theme === 'terminal' ? 'border-[#00ff9d]' : 'border-[#ff6b6b]';
-
-  return (
-    <section id="skills" className="py-20 px-4 relative">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className={`text-3xl md:text-4xl font-bold mb-12 ${accentColor}`}
-        >
-          Compétences
-        </motion.h2>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {content.skills.map((skillCategory, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`p-6 rounded-lg border ${borderColor} bg-[var(--card-bg)] hover:scale-105 transition-transform duration-300`}
-            >
-              <h3 className={`text-xl font-semibold mb-4 ${accentColor}`}>
-                {skillCategory.category}
-              </h3>
-              <ul className="space-y-2">
-                {skillCategory.items.map((skill, skillIndex) => (
-                  <li key={skillIndex} className="flex items-center">
-                    <span className={`w-2 h-2 rounded-full mr-3 ${
-                      theme === 'terminal' ? 'bg-[#00ff9d]' : 'bg-[#ff6b6b]'
-                    }`} />
-                    <span className="text-[var(--foreground)]">{skill}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return <section id="skills" className="relative px-5 py-24">
+    <div className="mx-auto max-w-7xl"><p className="section-kicker mb-4">02 / Capacités</p><div className="mb-10 flex flex-wrap items-end justify-between gap-5"><h2 className="text-3xl font-medium sm:text-4xl">Compétences opérationnelles</h2><p className="max-w-sm text-sm leading-relaxed text-[var(--text-muted)]">Un socle orienté investigation, réseau et automatisation.</p></div>
+      <div className="grid gap-px overflow-hidden rounded border border-[var(--border)] bg-[var(--border)] md:grid-cols-2 lg:grid-cols-3">{content.skills.map((skill, index) => <motion.div key={skill.category} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: index * .06 }} className="bg-[var(--card-bg)] p-7"><span className="font-mono text-xs text-[var(--accent)]">0{index + 1}</span><h3 className="mt-8 text-lg font-medium">{skill.category}</h3><ul className="mt-5 space-y-2 text-sm text-[var(--text-muted)]">{skill.items.map((item) => <li key={item} className="flex items-center gap-3"><span className="h-px w-4 bg-[var(--accent)]" />{item}</li>)}</ul></motion.div>)}</div>
+    </div>
+  </section>;
 }

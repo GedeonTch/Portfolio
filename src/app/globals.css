@@ -2,107 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Variables CSS pour les thèmes */
 :root {
-  --background: #0a0e14;
-  --foreground: #e0e0e0;
-  --accent: #00ff9d;
-  --accent-secondary: #00cc7d;
-  --border: #1a3a2a;
-  --card-bg: #0d1b2a;
-  --text-muted: #8b9db5;
+  --background: #071018;
+  --foreground: #e7eef3;
+  --accent: #6fd3c3;
+  --accent-secondary: #9adbd0;
+  --border: #223842;
+  --card-bg: #0d1b24;
+  --text-muted: #91a6b1;
+  --signal: #e8a36a;
 }
 
-/* Thème SOC Alert */
 body.soc {
-  --background: #1a1a2e;
-  --foreground: #e0e0e0;
-  --accent: #ff6b6b;
-  --accent-secondary: #ff8787;
-  --border: #2d2d4a;
-  --card-bg: #242442;
-  --text-muted: #8b8ba7;
+  --background: #11161c;
+  --foreground: #edf1f2;
+  --accent: #e08a72;
+  --accent-secondary: #f0b19d;
+  --border: #3a3032;
+  --card-bg: #1a2229;
+  --text-muted: #a9b2b7;
+  --signal: #e2b66e;
 }
 
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color .35s ease, color .35s ease;
 }
-
-/* Scan-lines très discrètes */
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.03) 0px,
-    rgba(0, 0, 0, 0.03) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-  z-index: 9999;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 4px);
+  opacity: .28;
+  z-index: 50;
 }
-
-/* Effet de circuit imprimé en fond */
 .circuit-pattern {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
-  opacity: 0.03;
-  background-image: 
-    linear-gradient(90deg, var(--accent) 1px, transparent 1px),
-    linear-gradient(var(--accent) 1px, transparent 1px);
-  background-size: 50px 50px;
+  opacity: .23;
+  background-image:
+    radial-gradient(circle at 12% 24%, var(--accent) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 18%, var(--accent) 0 1px, transparent 2px),
+    radial-gradient(circle at 64% 72%, var(--accent) 0 1px, transparent 2px),
+    linear-gradient(118deg, transparent 0 28%, rgba(111,211,195,.09) 28.1% 28.2%, transparent 28.3%),
+    linear-gradient(28deg, transparent 0 62%, rgba(111,211,195,.07) 62.1% 62.2%, transparent 62.3%);
+  background-size: 240px 240px, 330px 330px, 410px 410px, 100% 100%, 100% 100%;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
   z-index: 0;
 }
-
-/* Scrollbar personnalisée */
-::-webkit-scrollbar {
-  width: 8px;
+.section-kicker {
+  color: var(--accent);
+  font-family: var(--font-mono), monospace;
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
 }
-
-::-webkit-scrollbar-track {
-  background: var(--background);
+.surface {
+  background: linear-gradient(145deg, color-mix(in srgb, var(--card-bg) 94%, white 6%), var(--card-bg));
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0,0,0,.16);
 }
-
-::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-secondary);
-}
-
-/* Animation de frappe terminal */
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
-.cursor-blink {
-  animation: blink 1s infinite;
-}
-
-/* Respect des préférences de mouvement réduit */
+.network-line { stroke: var(--accent); stroke-width: 1; fill: none; opacity: .55; }
+.network-node { fill: var(--background); stroke: var(--accent); stroke-width: 1.5; }
+.cursor-blink { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  .cursor-blink {
-    animation: none;
-  }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }

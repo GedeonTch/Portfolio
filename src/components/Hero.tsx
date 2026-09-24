@@ -1,207 +1,68 @@
-// Section Hero avec effet de frappe terminal et photo de profil
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { content } from '@/data/content';
 import { useTheme } from '@/lib/theme-context';
+
+const logs = [
+  '08:14:39  SCAN    Analyse du périmètre externe lancée',
+  '08:15:11  ALERTE  3 tentatives suspectes — IP bloquée',
+  '08:15:12  ACTION  Compte verrouillé, client notifié en 41 s',
+  '08:17:48  INFO    Correctif critique déployé sur 12 serveurs',
+  '08:21:05  SCAN    0 vulnérabilité critique détectée ce matin',
+];
 
 export default function Hero() {
   const { theme } = useTheme();
   const [displayText, setDisplayText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
-  const name = content.hero.name;
-
-  // Effet de frappe terminal
+  const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
-    // Vérifier les préférences de mouvement réduit
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    if (prefersReducedMotion) {
-      setDisplayText(name);
-      setIsTyping(false);
-      return;
-    }
-
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setReducedMotion(reduce);
+    if (reduce) { setDisplayText(content.hero.name); return; }
     let index = 0;
-    const typingSpeed = 100; // ms par caractère
+    const timer = window.setInterval(() => {
+      index += 1;
+      setDisplayText(content.hero.name.slice(0, index));
+      if (index >= content.hero.name.length) window.clearInterval(timer);
+    }, 75);
+    return () => window.clearInterval(timer);
+  }, []);
+  const accent = theme === 'terminal' ? 'var(--accent)' : 'var(--accent)';
 
-    const timer = setInterval(() => {
-      if (index < name.length) {
-        setDisplayText(name.slice(0, index + 1));
-        index++;
-      } else {
-        setIsTyping(false);
-        clearInterval(timer);
-      }
-    }, typingSpeed);
-
-    return () => clearInterval(timer);
-  }, [name]);
-
-  const accentColor = theme === 'terminal' ? 'text-[#00ff9d]' : 'text-[#ff6b6b]';
-  const borderColor = theme === 'terminal' ? 'border-[#00ff9d]' : 'border-[#ff6b6b]';
-
-  return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
-      {/* Scène 3D en arrière-plan */}
-      <div className="absolute inset-0 z-0 opacity-60">
-        {/* Placeholder pour la scène 3D - à activer plus tard */}
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="text-center opacity-20">
-            <div className="text-6xl mb-4">🛡️</div>
-            <p className="text-sm">Scène 3D</p>
-          </div>
+  return <section id="hero" className="relative min-h-screen overflow-hidden px-5 pb-20 pt-36">
+    <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_.95fr]">
+      <div className="relative z-10">
+        <p className="section-kicker mb-5">Security operations / Bujumbura, Burundi</p>
+        <h1 className="max-w-4xl font-mono text-4xl font-medium leading-tight tracking-[-.04em] text-[var(--foreground)] sm:text-6xl lg:text-7xl">
+          {displayText}<span className="cursor-blink text-[var(--accent)]">_</span>
+        </h1>
+        <p className="mt-7 max-w-2xl text-lg leading-relaxed text-[var(--text-muted)]">{content.hero.title}</p>
+        <p className="mt-4 max-w-xl text-base leading-relaxed text-[var(--foreground)]">{content.hero.tagline}</p>
+        <div className="mt-9 flex flex-wrap gap-3">
+          <a href="#projects" className="rounded border border-[var(--accent)] bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[#071018] transition hover:brightness-110">Voir les projets</a>
+          <a href={content.contact.cvPath} className="rounded border border-[var(--border)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">Télécharger le CV</a>
+        </div>
+        <div className="mt-12 flex gap-8 border-t border-[var(--border)] pt-5 font-mono text-[11px] text-[var(--text-muted)]">
+          <span><strong className="text-[var(--accent)]">01</strong> SOC &amp; détection</span><span><strong className="text-[var(--accent)]">02</strong> Pentest contrôlé</span>
         </div>
       </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-        {/* Colonne gauche - Photo de profil */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="flex justify-center md:justify-start"
-        >
-          <div className="relative">
-            {/* Cadre hexagonal avec bordure animée */}
-            <div className={`w-48 h-48 md:w-64 md:h-64 relative ${borderColor} border-2 rounded-lg overflow-hidden bg-gradient-to-br from-transparent to-transparent`}>
-              {/* Effet de scan sur la bordure */}
-              <motion.div
-                className={`absolute inset-0 ${borderColor} border-2 rounded-lg`}
-                animate={{
-                  boxShadow: [
-                    `0 0 5px ${theme === 'terminal' ? '#00ff9d' : '#ff6b6b'}`,
-                    `0 0 20px ${theme === 'terminal' ? '#00ff9d' : '#ff6b6b'}`,
-                    `0 0 5px ${theme === 'terminal' ? '#00ff9d' : '#ff6b6b'}`,
-                  ]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              
-              {/* Photo de profil ou placeholder */}
-              <div className="w-full h-full flex items-center justify-center bg-[var(--card-bg)]">
-                {content.hero.photoPath === '/photo-placeholder.svg' ? (
-                  // Placeholder silhouette
-                  <svg
-                    className="w-24 h-24 md:w-32 md:h-32 text-[var(--text-muted)]"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                  </svg>
-                ) : (
-                  <img
-                    src={content.hero.photoPath}
-                    alt="Photo de profil"
-                    className="w-full h-full object-cover"
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Colonne droite - Texte */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-center md:text-left"
-        >
-          {/* Nom avec effet de frappe */}
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 font-mono">
-            <span className={accentColor}>{displayText}</span>
-            {isTyping && <span className="cursor-blink">|</span>}
-          </h1>
-
-          {/* Titre */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-[var(--text-muted)] mb-4"
-          >
-            {content.hero.title}
-          </motion.p>
-
-          {/* Accroche */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl md:text-2xl mb-8 font-semibold"
-          >
-            {content.hero.tagline}
-          </motion.p>
-
-          {/* Boutons CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
-          >
-            <a
-              href="#projects"
-              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 ${
-                theme === 'terminal'
-                  ? 'bg-[#00ff9d] text-black hover:bg-[#00cc7d]'
-                  : 'bg-[#ff6b6b] text-black hover:bg-[#ff8787]'
-              }`}
-            >
-              Voir mes projets
-            </a>
-            <a
-              href={content.contact.cvPath}
-              className={`px-6 py-3 rounded-lg font-semibold border-2 transition-all duration-300 hover:scale-105 ${
-                theme === 'terminal'
-                  ? 'border-[#00ff9d] text-[#00ff9d] hover:bg-[#00ff9d] hover:text-black'
-                  : 'border-[#ff6b6b] text-[#ff6b6b] hover:bg-[#ff6b6b] hover:text-black'
-              }`}
-            >
-              Télécharger CV
-            </a>
-          </motion.div>
-        </motion.div>
+      <div className="relative min-h-[390px]">
+        <NetworkGraphic accent={accent} />
+        <div className="surface absolute bottom-3 left-0 w-full max-w-sm p-4 font-mono text-[10px] leading-6 text-[var(--text-muted)] sm:left-8">
+          <div className="mb-2 flex items-center justify-between border-b border-[var(--border)] pb-2 text-[var(--accent)]"><span>LIVE / AUDIT STREAM</span><span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" /></div>
+          {logs.slice(0, reducedMotion ? 3 : 5).map((log) => <div key={log}>{log}</div>)}
+        </div>
       </div>
-
-      {/* Logs d'audit défilants en arrière-plan */}
-      <div className="absolute bottom-4 left-4 z-0 opacity-30 font-mono text-xs hidden md:block">
-        <AuditLogs />
-      </div>
-    </section>
-  );
+    </div>
+  </section>;
 }
 
-// Composant pour les logs d'audit défilants
-function AuditLogs() {
-  const logs = [
-    "08:14:39 SCAN Analyse du périmètre externe lancée",
-    "08:15:11 ALERTE 3 tentatives de connexion suspectes, IP bloquée",
-    "08:15:12 ACTION Compte verrouillé, client notifié en 41 s",
-    "08:17:48 INFO Correctif critique déployé sur 12 serveurs",
-    "08:21:05 SCAN 0 vulnérabilité critique détectée ce matin",
-    "08:21:42 INFO Sauvegarde nocturne vérifiée, 142/142 actifs OK",
-  ];
-
-  return (
-    <div className="space-y-1">
-      {logs.map((log, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.2 }}
-          className="text-[var(--text-muted)]"
-        >
-          {log}
-        </motion.div>
-      ))}
-    </div>
-  );
+function NetworkGraphic({ accent }: { accent: string }) {
+  return <svg aria-label="Réseau de nœuds de sécurité" role="img" viewBox="0 0 520 400" className="h-full w-full">
+    <g className="network-line"><path d="M90 95 220 52 350 112 455 70M90 95l25 180 180-56 105 86M220 52l75 167 160-149M350 112l-55 107 115 84M115 275l-70 58M295 219l-40 130M410 305l65 43" /></g>
+    {[[90,95],[220,52],[350,112],[455,70],[115,275],[295,219],[410,305],[255,349],[45,333]].map(([cx,cy]) => <g key={`${cx}-${cy}`}><circle cx={cx} cy={cy} r="6" className="network-node" /><circle cx={cx} cy={cy} r="13" fill={accent} opacity=".08" /></g>)}
+    <path d="M180 168 238 135 296 168 296 235 238 269 180 235Z" fill="none" stroke={accent} strokeWidth="1.5" opacity=".8" /><path d="M238 153v97M197 187h82M197 217h82" className="network-line" />
+  </svg>;
 }

@@ -1,69 +1,42 @@
-// Navigation principale
 'use client';
 
 import { motion } from 'framer-motion';
 import { useTheme } from '@/lib/theme-context';
 
+const navItems = [
+  ['Accueil', '#hero'], ['À propos', '#about'], ['Compétences', '#skills'],
+  ['Outils', '#tools'], ['Projets', '#projects'], ['Contact', '#contact'],
+];
+
 export default function Navigation() {
   const { theme } = useTheme();
-  const accentColor = theme === 'terminal' ? 'text-[#00ff9d]' : 'text-[#ff6b6b]';
-  const borderColor = theme === 'terminal' ? 'border-[#00ff9d]' : 'border-[#ff6b6b]';
-
-  const navItems = [
-    { name: 'Accueil', href: '#hero' },
-    { name: 'À propos', href: '#about' },
-    { name: 'Compétences', href: '#skills' },
-    { name: 'Outils', href: '#tools' },
-    { name: 'Projets', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8 }}
-      className={`fixed top-0 left-0 right-0 z-40 border-b ${borderColor} bg-[var(--background)]/80 backdrop-blur-sm`}
-    >
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <a href="#hero" className={`text-xl font-bold ${accentColor}`}>
-            GC
-          </a>
-
-          {/* Liens de navigation */}
-          <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className={`text-sm font-medium hover:${accentColor} transition-colors text-[var(--foreground)]`}
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-
-          {/* Menu mobile */}
-          <div className="md:hidden">
-            <select
-              onChange={(e) => {
-                const href = e.target.value;
-                if (href) window.location.href = href;
-              }}
-              className={`px-3 py-2 rounded border ${borderColor} bg-[var(--card-bg)] text-[var(--foreground)] text-sm`}
-            >
-              <option value="">Menu</option>
-              {navItems.map((item) => (
-                <option key={item.name} value={item.href}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
+    <motion.nav initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+      className="fixed inset-x-0 top-0 z-40 border-b border-[var(--border)] bg-[var(--background)]/90 backdrop-blur-xl">
+      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-5">
+        <a href="#hero" className="flex items-center gap-3 font-mono text-sm tracking-wider">
+          <span className="grid h-8 w-8 place-items-center rounded border border-[var(--accent)] text-[var(--accent)]">GC</span>
+          <span className="hidden text-[var(--foreground)] sm:inline">TCHIBANVUNYA<span className="text-[var(--accent)]">.</span>SEC</span>
+        </a>
+        <div className="hidden items-center gap-6 lg:flex">
+          {navItems.map(([name, href]) => <a key={href} href={href} className="text-xs text-[var(--text-muted)] transition-colors hover:text-[var(--accent)]">{name}</a>)}
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="hidden font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] sm:inline">{theme === 'terminal' ? 'Terminal' : 'SOC alert'}</span>
+          <select aria-label="Navigation mobile" onChange={(e) => e.target.value && (window.location.href = e.target.value)}
+            className="max-w-[5.5rem] rounded border border-[var(--border)] bg-[var(--card-bg)] px-2 py-2 text-xs text-[var(--foreground)] lg:hidden">
+            <option value="">Menu</option>{navItems.map(([name, href]) => <option key={href} value={href}>{name}</option>)}
+          </select>
+          <ThemeSwitch />
         </div>
       </div>
     </motion.nav>
   );
+}
+
+function ThemeSwitch() {
+  const { theme, toggleTheme } = useTheme();
+  return <button onClick={toggleTheme} aria-label="Changer de thème" className="flex items-center gap-2 rounded-full border border-[var(--border)] px-2.5 py-1.5 text-[10px] text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]">
+    <span className={`h-2 w-2 rounded-full ${theme === 'terminal' ? 'bg-[var(--accent)]' : 'bg-[var(--signal)]'}`} /> {theme === 'terminal' ? 'T' : 'S'}
+  </button>;
 }

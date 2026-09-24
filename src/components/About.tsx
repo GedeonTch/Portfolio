@@ -1,46 +1,16 @@
-// Section À propos
 'use client';
 
 import { motion } from 'framer-motion';
-import { useTheme } from '@/lib/theme-context';
 
 export default function About() {
-  const { theme } = useTheme();
-  const accentColor = theme === 'terminal' ? 'text-[#00ff9d]' : 'text-[#ff6b6b]';
-  const borderColor = theme === 'terminal' ? 'border-[#00ff9d]' : 'border-[#ff6b6b]';
-
-  return (
-    <section id="about" className="py-20 px-4 relative">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className={`text-3xl md:text-4xl font-bold mb-8 ${accentColor}`}>
-            À propos
-          </h2>
-
-          <div className={`p-6 rounded-lg border ${borderColor} bg-[var(--card-bg)]`}>
-            <p className="text-lg leading-relaxed mb-4">
-              Étudiant en Informatique de Gestion avec spécialisation en cybersécurité à l'Université 
-              Lumière de Bujumbura (ULBU), Burundi. Originaire de Bukavu en République Démocratique du Congo.
-            </p>
-
-            <p className="text-lg leading-relaxed mb-4">
-              Passionné par l'analyse SOC (Security Operations Center), les tests d'intrusion et le 
-              développement de logiciels orientés sécurité. Mon objectif est de contribuer à la protection 
-              des infrastructures critiques et des données sensibles.
-            </p>
-
-            <p className="text-lg leading-relaxed">
-              Approche professionnelle et méthodique, axée sur l'apprentissage continu et l'application 
-              pratique des concepts de cybersécurité dans des environnements réels.
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
+  return <section id="about" className="relative px-5 py-24">
+    <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.7fr_1.3fr]">
+      <div><p className="section-kicker mb-4">01 / Profil</p><h2 className="text-3xl font-medium tracking-tight sm:text-4xl">Comprendre le risque.<br /><span className="text-[var(--accent)]">Réduire l'exposition.</span></h2></div>
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="surface p-7 sm:p-10">
+        <p className="text-lg leading-relaxed text-[var(--foreground)]">Étudiant en Informatique de Gestion, orientation cybersécurité, à l'Université Lumière de Bujumbura (ULBU).</p>
+        <p className="mt-5 leading-relaxed text-[var(--text-muted)]">Basé à Bujumbura et originaire de Bukavu (RDC), je travaille sur des problématiques concrètes de sécurité : analyse SOC, tests d'intrusion en environnement contrôlé et développement de logiciels fiables.</p>
+        <div className="mt-8 grid gap-4 border-t border-[var(--border)] pt-6 text-sm sm:grid-cols-3"><div><span className="section-kicker">Focus</span><p className="mt-2">Détection &amp; réponse</p></div><div><span className="section-kicker">Méthode</span><p className="mt-2">Précise, documentée</p></div><div><span className="section-kicker">Terrain</span><p className="mt-2">Bujumbura / Bukavu</p></div></div>
+      </motion.div>
+    </div>
+  </section>;
 }

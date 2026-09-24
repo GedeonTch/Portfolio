@@ -1,6 +1,5 @@
 // Page principale du portfolio
 import Navigation from '@/components/Navigation';
-import ThemeToggle from '@/components/ThemeToggle';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
@@ -17,33 +16,13 @@ export default function Home() {
       {/* Navigation */}
       <Navigation />
       
-      {/* Bouton de changement de thème */}
-      <ThemeToggle />
-      
       {/* Sections */}
-      <section id="hero">
-        <Hero />
-      </section>
-      
-      <section id="about">
-        <About />
-      </section>
-      
-      <section id="skills">
-        <Skills />
-      </section>
-      
-      <section id="tools">
-        <Tools />
-      </section>
-      
-      <section id="projects">
-        <Projects />
-      </section>
-      
-      <section id="contact">
-        <Contact />
-      </section>
+      <Hero />
+      <About />
+      <Skills />
+      <Tools />
+      <Projects />
+      <Contact />
       
       {/* Footer */}
       <footer className="py-8 px-4 border-t border-[var(--border)] bg-[var(--card-bg)]">
