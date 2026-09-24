@@ -1,4 +1,6 @@
 // Contexte React pour la gestion des thèmes
+'use client';
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Theme } from '@/types';
 
