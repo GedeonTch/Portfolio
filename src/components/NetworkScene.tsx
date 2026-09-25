@@ -43,20 +43,27 @@ function NodesAndLines({ count = 12, accent = '#3ddc84', accent2 = '#3dd6dc' }: 
         </mesh>
       ))}
 
-      {lines.map(([a, b], idx) => {
-        const p1 = positions[a];
-        const p2 = positions[b];
+      {/* Consolidated lineSegments for performance */}
+      {lines.length > 0 && (() => {
+        const positionsArray = new Float32Array(lines.length * 2 * 3);
+        let o = 0;
+        for (let i = 0; i < lines.length; i++) {
+          const [a, b] = lines[i];
+          const p1 = positions[a];
+          const p2 = positions[b];
+          positionsArray[o++] = p1.x; positionsArray[o++] = p1.y; positionsArray[o++] = p1.z;
+          positionsArray[o++] = p2.x; positionsArray[o++] = p2.y; positionsArray[o++] = p2.z;
+        }
         return (
-          <mesh key={idx} position={[0, 0, 0]}>
-            <line>
-              <bufferGeometry attach="geometry">
-                <bufferAttribute attachObject={{ name: 'position' }} count={2} array={new Float32Array([p1.x, p1.y, p1.z, p2.x, p2.y, p2.z])} itemSize={3} />
-              </bufferGeometry>
-              <lineBasicMaterial attach="material" color={accent2} linewidth={1} transparent opacity={0.35} />
-            </line>
-          </mesh>
+          <lineSegments>
+            <bufferGeometry>
+              <bufferAttribute attach="attributes-position" array={positionsArray} count={positionsArray.length / 3} itemSize={3} />
+            </bufferGeometry>
+            <lineBasicMaterial color={accent2} linewidth={1} transparent opacity={0.35} />
+          </lineSegments>
         );
-      })}
+      })()}
+
     </group>
   );
 }
