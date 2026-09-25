@@ -3,14 +3,31 @@
 @tailwind utilities;
 
 :root {
-  --background: #071018;
-  --foreground: #e7eef3;
-  --accent: #6fd3c3;
-  --accent-secondary: #9adbd0;
-  --border: #223842;
-  --card-bg: #0d1b24;
-  --text-muted: #91a6b1;
-  --signal: #e8a36a;
+ --bg: #0a0e14;
+ --bg-alt: #0d1620;
+ --panel: #0f1a26;
+ --accent: #3ddc84;
+ --accent2: #3dd6dc;
+ --text: #e6edf3;
+ --muted: #8592a0;
+ --border: rgba(255,255,255,.08);
+ --card-bg: var(--panel);
+ --background: var(--bg);
+ --foreground: var(--text);
+}
+
+body.soc {
+ --bg: #150e0d;
+ --bg-alt: #1c1310;
+ --panel: #241713;
+ --accent: #ff8a3d;
+ --accent2: #3d8eff;
+ --text: #e6edf3;
+ --muted: #8592a0;
+ --border: rgba(255,255,255,.08);
+ --card-bg: var(--panel);
+ --background: var(--bg);
+ --foreground: var(--text);
 }
 
 body.soc {

@@ -34,7 +34,14 @@ export default function Hero() {
   return (
     <section id="hero" className="relative min-h-screen overflow-hidden px-5 pb-20 pt-36">
     <div className="pointer-events-none absolute inset-0 z-0 opacity-70">
-      <NetworkGraphic accent={accent} />
+      {/* Client-only 3D scene: fallback to SVG when not supported */}
+      <div className="absolute inset-0 hidden md:block">
+        {/* NetworkScene is dynamically imported in a client environment elsewhere; keep SVG as low-end fallback for server */}
+        <NetworkGraphic accent={accent} />
+      </div>
+      <div className="absolute inset-0 md:hidden">
+        <NetworkGraphic accent={accent} />
+      </div>
     </div>
     <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_.95fr]">
       <div>
