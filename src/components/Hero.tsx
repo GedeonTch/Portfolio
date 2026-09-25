@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { content } from '@/data/content';
 import { useTheme } from '@/lib/theme-context';
@@ -32,11 +31,15 @@ export default function Hero() {
   }, []);
   const accent = theme === 'terminal' ? 'var(--accent)' : 'var(--accent)';
 
-  return <section id="hero" className="relative min-h-screen overflow-hidden px-5 pb-20 pt-36">
-    <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_.95fr]">
-      <div className="relative z-10">
-      <div className="mb-7 flex items-center gap-4">
-        <div className="profile-frame h-20 w-20 overflow-hidden rounded-full border-2 bg-[var(--card-bg)]">
+  return (
+    <section id="hero" className="relative min-h-screen overflow-hidden px-5 pb-20 pt-36">
+    <div className="pointer-events-none absolute inset-0 z-0 opacity-70">
+      <NetworkGraphic accent={accent} />
+    </div>
+    <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_.95fr]">
+      <div>
+      <div className="mb-8 flex items-center gap-5">
+        <div className="profile-frame h-44 w-44 shrink-0 overflow-hidden rounded-full border-2 bg-[var(--card-bg)] sm:h-56 sm:w-56">
           <img
             src={photoSrc}
             alt="Portrait de Gédéon Cibanvunya"
@@ -44,11 +47,11 @@ export default function Hero() {
             onError={() => setPhotoSrc('/photo-placeholder.svg')}
           />
         </div>
+      </div>
         <div className="font-mono text-[10px] uppercase tracking-[.18em] text-[var(--text-muted)]">
           <span className="mb-1 block text-[var(--accent)]">Identité vérifiée</span>
           Profil cybersécurité
         </div>
-      </div>
       <p className="section-kicker mb-5">Security operations / Bujumbura, Burundi</p>
         <h1 className="max-w-4xl font-mono text-4xl font-medium leading-tight tracking-[-.04em] text-[var(--foreground)] sm:text-6xl lg:text-7xl">
           {displayText}<span className="cursor-blink text-[var(--accent)]">_</span>
@@ -64,7 +67,6 @@ export default function Hero() {
         </div>
       </div>
       <div className="relative min-h-[390px]">
-        <NetworkGraphic accent={accent} />
         <div className="surface absolute bottom-3 left-0 w-full max-w-sm p-4 font-mono text-[10px] leading-6 text-[var(--text-muted)] sm:left-8">
           <div className="mb-2 flex items-center justify-between border-b border-[var(--border)] pb-2 text-[var(--accent)]"><span>LIVE / AUDIT STREAM</span><span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" /></div>
           <div className="audit-stream">
@@ -75,14 +77,15 @@ export default function Hero() {
         </div>
       </div>
     </div>
-  </section>;
+    </section>
+  );
 }
 
 function NetworkGraphic({ accent }: { accent: string }) {
-  return <svg aria-label="Réseau de nœuds de sécurité" role="img" viewBox="0 0 520 400" className="h-full w-full">
-    <path d="M180 168 238 135 296 168 296 235 238 269 180 235Z" fill="var(--card-bg)" stroke={accent} strokeWidth="1.5" opacity=".92" />
-    <path d="M238 152v98M198 187h80M198 217h80" className="network-line" />
-    <g className="network-line"><path d="M90 95 220 52 350 112 455 70M90 95l25 180 180-56 105 86M220 52l75 167 160-149M350 112l-55 107 115 84M115 275l-70 58M295 219l-40 130M410 305l65 43" /></g>
-    {[[90,95],[220,52],[350,112],[455,70],[115,275],[295,219],[410,305],[255,349],[45,333]].map(([cx,cy]) => <g key={`${cx}-${cy}`}><circle cx={cx} cy={cy} r="6" className="network-node" /><circle cx={cx} cy={cy} r="13" fill={accent} opacity=".08" /></g>)}
+  return <svg aria-label="Réseau de nœuds de sécurité" role="img" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" className="h-full w-full">
+    <path d="M510 250 600 195 690 250 690 355 600 410 510 355Z" fill="var(--card-bg)" stroke={accent} strokeWidth="2" opacity=".8" />
+    <path d="M600 215v175M535 275h130M535 325h130" className="network-line" />
+    <g className="network-line"><path d="M80 110 290 60 510 170 740 75 1080 150M80 110l110 410 320-120 260 180 310-190M290 60l150 370 160-235 260 180 220-225M740 75l-140 120 170 255 310-300M190 520 60 650M510 460 430 650M770 640l170-110M1080 150l100 180" /></g>
+    {[[80,110],[290,60],[510,170],[740,75],[1080,150],[190,520],[510,460],[770,640],[1080,490],[1180,330]].map(([cx,cy]) => <g key={`${cx}-${cy}`}><circle cx={cx} cy={cy} r="8" className="network-node" /><circle cx={cx} cy={cy} r="22" fill={accent} opacity=".08" /></g>)}
   </svg>;
 }
