@@ -16,6 +16,7 @@ const logs = [
 export default function Hero() {
   const { theme } = useTheme();
   const [displayText, setDisplayText] = useState('');
+  const [photoSrc, setPhotoSrc] = useState(content.hero.photoPath);
   const [, setReducedMotion] = useState(false);
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -36,7 +37,12 @@ export default function Hero() {
       <div className="relative z-10">
       <div className="mb-7 flex items-center gap-4">
         <div className="profile-frame h-20 w-20 overflow-hidden rounded-full border-2 bg-[var(--card-bg)]">
-          <img src={content.hero.photoPath} alt="Portrait de Gédéon Cibanvunya" className="h-full w-full object-cover" />
+          <img
+            src={photoSrc}
+            alt="Portrait de Gédéon Cibanvunya"
+            className="h-full w-full object-cover"
+            onError={() => setPhotoSrc('/photo-placeholder.svg')}
+          />
         </div>
         <div className="font-mono text-[10px] uppercase tracking-[.18em] text-[var(--text-muted)]">
           <span className="mb-1 block text-[var(--accent)]">Identité vérifiée</span>
