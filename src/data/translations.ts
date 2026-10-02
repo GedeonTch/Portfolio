@@ -243,7 +243,8 @@ export const contentEn: ContentData = {
     { name: 'Wireshark', url: 'https://www.wireshark.org', icon: 'wireshark' },
     { name: 'OWASP ZAP', url: 'https://www.zaproxy.org', icon: 'zap' },
     { name: 'Wazuh', url: 'https://wazuh.com', icon: 'wazuh' },
-    { name: 'SentinelX', url: '#projects', icon: 'sentinelx' },
+    { name: 'SentinelX', url: '#projects', icon: 'sentinelx' },+    
+    { name: 'SentinelX', url: 'https://github.com/GedeonTch/sentinelX', icon: 'sentinelx' },
   ],
   projects: [
     {

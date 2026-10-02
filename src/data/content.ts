@@ -77,7 +77,8 @@ export const content: ContentData = {
       name: "SentinelX",
       url: "#projects", // Pointe vers la section projets
       icon: "sentinelx"
-    }
+    } +    
+    { name: 'SentinelX', url: 'https://github.com/GedeonTch/sentinelX', icon: 'sentinelx' }
   ],
 
   // Section Projets
