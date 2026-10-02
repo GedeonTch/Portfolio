@@ -2,6 +2,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { MotionConfig } from 'framer-motion';
 import { Theme } from '@/types';
 
 interface ThemeContextType {
@@ -37,14 +38,17 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setTheme(prev => prev === 'terminal' ? 'soc' : 'terminal');
   };
 
-  // Éviter le flash de thème au chargement
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
+  // Le Provider est rendu même avant montage : sinon, au prerender SSR, tout
+  // composant appelant useTheme() planterait ("must be used within a ThemeProvider").
+  // Le thème par défaut ('terminal') est déterministe côté serveur et client,
+  // puis localStorage est appliqué après hydratation.
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
+      {/* prefers-reduced-motion généralisé : framer-motion désactive les animations
+          de transformation pour tous les composants descendants */}
+      <MotionConfig reducedMotion="user">
+        {children}
+      </MotionConfig>
     </ThemeContext.Provider>
   );
 }

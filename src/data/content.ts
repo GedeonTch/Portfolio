@@ -111,7 +111,7 @@ export const content: ContentData = {
       tag: "Application web",
       description: "Site e-commerce d'électronique et mobilier européens reconditionnés (ÉTABLISSEMENT TCHIBANVUNYA). Stack : Next.js 14, Tailwind, Three.js, MySQL/Prisma, déployé sur Vercel. Trilingue, tarification USD/CDF.",
       stack: ["Next.js 14", "Tailwind CSS", "Three.js", "MySQL", "Prisma"],
-      link: "https://github.com/GedeonTch",
+      link: "https://etch-store.vercel.app/", // Site en production
       featured: false
     }
   ],

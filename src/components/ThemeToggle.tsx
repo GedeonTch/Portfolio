@@ -1,4 +1,6 @@
 // Bouton de changement de thème
+'use client';
+
 import { useTheme } from '@/lib/theme-context';
 import { motion } from 'framer-motion';
 
@@ -12,9 +14,9 @@ export default function ThemeToggle() {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       style={{
-        backgroundColor: theme === 'terminal' ? '#0a0e14' : '#1a1a2e',
-        borderColor: theme === 'terminal' ? '#00ff9d' : '#ff6b6b',
-        color: theme === 'terminal' ? '#00ff9d' : '#ff6b6b'
+        backgroundColor: 'var(--background)',
+        borderColor: 'var(--accent)',
+        color: 'var(--accent)'
       }}
       aria-label="Changer de thème"
     >

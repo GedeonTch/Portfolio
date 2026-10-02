@@ -1,23 +1,31 @@
 // Bouclier 3D stylisé avec effet de scan
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Mesh, Vector3 } from 'three';
+import { Group } from 'three';
 import { useTheme } from '@/lib/theme-context';
 
 export function Shield() {
-  const meshRef = useRef<Mesh>(null);
+  const meshRef = useRef<Group>(null);
   const { theme } = useTheme();
   const [scanPosition, setScanPosition] = useState(0);
+  // Couleurs résolues depuis les variables CSS du thème (three.js ne lit pas var())
+  const [accentColor, setAccentColor] = useState('#22d3ee');
+  const [baseColor, setBaseColor] = useState('#0d1b2a');
 
-  useFrame((state) => {
+  useEffect(() => {
+    const styles = getComputedStyle(document.body);
+    const accent = styles.getPropertyValue('--accent').trim();
+    const card = styles.getPropertyValue('--card-bg').trim();
+    if (accent) setAccentColor(accent);
+    if (card) setBaseColor(card);
+  }, [theme]);
+
+  useFrame(() => {
     // Animation de la ligne de scan
     setScanPosition((prev) => (prev + 0.01) % 1);
   });
-
-  const accentColor = theme === 'terminal' ? '#00ff9d' : '#ff6b6b';
-  const baseColor = theme === 'terminal' ? '#0d1b2a' : '#242442';
 
   return (
     <group ref={meshRef}>
