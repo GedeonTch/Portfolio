@@ -75,10 +75,9 @@ export const content: ContentData = {
     },
     {
       name: "SentinelX",
-      url: "#projects", // Pointe vers la section projets
+      url: "https://github.com/GedeonTch/sentinelX", // Repo GitHub officiel SentinelX
       icon: "sentinelx"
-    } +    
-    { name: 'SentinelX', url: 'https://github.com/GedeonTch/sentinelX', icon: 'sentinelx' }
+    }
   ],
 
   // Section Projets
