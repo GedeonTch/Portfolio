@@ -211,7 +211,7 @@ export const contentEn: ContentData = {
     name: 'Gédéon Cibanvunya',
     title: 'Business Computing student specializing in Cybersecurity — Lumière University of Bujumbura (ULBU), Burundi',
     tagline: 'Passionate about SOC analysis, pentesting and security-focused software development',
-    photoPath: '/photo-placeholder.svg',
+    photoPath: '/photo.jpg',
   },
   skills: [
     {
