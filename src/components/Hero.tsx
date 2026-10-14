@@ -25,10 +25,15 @@ export default function Hero() {
     return () => motionQuery.removeEventListener('change', onChange);
   }, []);
 
-  // Couleur d'accent résolue depuis la variable CSS (pour le boxShadow animé en JS)
+  // Couleur d'accent résolue depuis la variable CSS (pour le boxShadow animé en JS).
+  // Lecture différée au prochain frame (rAF) : cet effet s'exécuterait sinon avant
+  // celui du ThemeProvider qui pose body.className → couleur du thème précédent.
   useEffect(() => {
-    const value = getComputedStyle(document.body).getPropertyValue('--accent').trim();
-    if (value) setAccentHex(value);
+    const raf = requestAnimationFrame(() => {
+      const value = getComputedStyle(document.body).getPropertyValue('--accent').trim();
+      if (value) setAccentHex(value);
+    });
+    return () => cancelAnimationFrame(raf);
   }, [theme]);
 
   // Effet de frappe terminal

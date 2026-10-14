@@ -370,7 +370,7 @@ export const contentEn: ContentData = {
     },
     {
       category: 'Networking',
-      items: ['TCP/IP', 'Nmap', 'Scapy', 'ACL/firewall', 'tcpdump'],
+      items: ['TCP/IP', 'SSH', 'Nmap', 'Scapy', 'ACL/firewall', 'tcpdump'],
     },
     {
       category: 'Systems administration',

@@ -20,7 +20,7 @@ export const content: ContentData = {
     },
     {
       category: "Réseau",
-      items: ["TCP/IP", "Nmap", "Scapy", "ACL/firewall", "tcpdump"]
+      items: ["TCP/IP", "SSH", "Nmap", "Scapy", "ACL/firewall", "tcpdump"]
     },
     {
       category: "Administration systèmes",

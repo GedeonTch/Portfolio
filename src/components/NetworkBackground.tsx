@@ -285,10 +285,16 @@ export default function NetworkBackground() {
     };
   }, []);
 
-  // Couleur lue depuis la variable CSS du thème actif
+  // Couleur lue depuis la variable CSS du thème actif.
+  // Important : lecture différée au prochain frame (rAF). Sans ça, cet effet —
+  // enfant — s'exécute AVANT celui du ThemeProvider qui pose `body.className`,
+  // et la couleur lue serait celle du thème précédent (nœuds désynchronisés).
   useEffect(() => {
-    const value = getComputedStyle(document.body).getPropertyValue('--accent').trim();
-    if (value) setAccentColor(value);
+    const raf = requestAnimationFrame(() => {
+      const value = getComputedStyle(document.body).getPropertyValue('--accent').trim();
+      if (value) setAccentColor(value);
+    });
+    return () => cancelAnimationFrame(raf);
   }, [theme]);
 
   if (!mounted) return null;
