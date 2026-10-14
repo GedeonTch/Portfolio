@@ -36,11 +36,22 @@ export interface ContactData {
   formEndpoint: string;
 }
 
+// Entrée de la galerie /labs : l'image est déposée dans /public/labs/<image>
+export interface Lab {
+  slug: string;
+  title: string;
+  tag: string;
+  description: string;
+  image: string;
+  repoUrl: string;
+}
+
 export interface ContentData {
   hero: HeroData;
   skills: Skill[];
   tools: Tool[];
   projects: Project[];
+  labs: Lab[];
   contact: ContactData;
 }
 

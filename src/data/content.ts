@@ -84,19 +84,11 @@ export const content: ContentData = {
   projects: [
     {
       title: "SentinelX",
-      tag: "Écosystème de sécurité",
-      description: "Écosystème de sécurité modulaire chapeautant plusieurs sous-projets (NetLab, Insight, Nexus) reliés visuellement comme des nœuds d'un même réseau dans le logo/branding.",
-      stack: ["Python", "Next.js", "Three.js", "Docker"],
-      link: "https://github.com/GedeonTch/sentinelX",
+      tag: "Audit réseau — V1 NetLab",
+      description: "Boîte à outils open source (GPL v3) d'audit réseau en environnement contrôlé : reconnaissance, détection CVE, scoring de risque documenté, rapports HTML et JSON, moteur de surveillance Sentinel.",
+      stack: ["Python", "Typer", "SQLite", "Nmap"],
+      link: "/projets/sentinelx",
       featured: true
-    },
-    {
-      title: "NetLab",
-      tag: "Framework éducatif",
-      description: "Framework Python open-source éducatif pour apprendre les phases de pentest (reconnaissance, scan de ports, découverte d'hôtes) légalement en environnement contrôlé. Modules : Host Discovery, Port Scanner, Recon Manager. Génère des rapports PDF/HTML/JSON.",
-      stack: ["Python", "ReportLab", "BeautifulSoup"],
-      link: "https://github.com/GedeonTch/sentinelX",
-      featured: false
     },
     {
       title: "MAYUNDO — Analyse de malware",
@@ -113,6 +105,27 @@ export const content: ContentData = {
       stack: ["Next.js 14", "Tailwind CSS", "Three.js", "MySQL", "Prisma"],
       link: "https://etch-store.vercel.app/", // Site en production
       featured: false
+    }
+  ],
+
+  // Page Labs — galerie des environnements de laboratoire
+  // Les captures sont à déposer dans /public/labs/ avec ces noms de fichiers
+  labs: [
+    {
+      slug: "sentinelx",
+      title: "SentinelX — NetLab V1",
+      tag: "Audit réseau (laboratoire)",
+      description: "Pipeline d'audit exécuté en CLI sur un réseau de laboratoire : découverte d'hôtes, scans de ports, détection CVE, scoring de risque, rapport HTML/JSON.",
+      image: "/labs/sentinelx.png",
+      repoUrl: "https://github.com/GedeonTch/sentinelX"
+    },
+    {
+      slug: "mayundo",
+      title: "MAYUNDO — Investigation forensique",
+      tag: "Analyse de malware en VM",
+      description: "Analyse d'un ver JavaScript se propageant par clé USB, conduite dans une VM contrôlée : investigation statique, règles YARA/Sigma, preuves d'infection.",
+      image: "/labs/mayundo.png",
+      repoUrl: "https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS"
     }
   ],
 

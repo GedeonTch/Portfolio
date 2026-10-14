@@ -8,7 +8,7 @@ import BrandText from '@/components/BrandText';
 
 // Couleurs officielles des marques (simple-icons, licence CC0)
 const BRAND_COLORS = {
-  kali: '#557C94',
+  kali: '#7FB3D8',  // logo officiel #557C94 éclairci : illisible sur fond sombre sinon
   wireshark: '#1679A7',
   docker: '#2496ED',
   nmap: '#E04E39',   // PLACEHOLDER cohérent avec le site — pas de logo officiel SVG libre
@@ -105,7 +105,7 @@ export default function Tools() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-bold mb-12 text-[var(--accent)]"
+          className="section-title text-3xl md:text-4xl font-bold mb-12 text-[var(--accent)]"
         >
           {t.tools.title}
         </motion.h2>
@@ -122,7 +122,7 @@ export default function Tools() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ scale: 1.1 }}
-              className="group relative p-6 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)] flex flex-col items-center justify-center gap-3 hover:shadow-lg transition-all duration-300"
+              className="card-hover-glow group relative p-6 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)] flex flex-col items-center justify-center gap-3 hover:shadow-lg transition-all duration-300"
             >
               {/* Effet de lueur au survol */}
               <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300 bg-[var(--accent)]" />

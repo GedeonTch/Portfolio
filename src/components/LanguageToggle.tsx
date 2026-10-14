@@ -17,7 +17,7 @@ export default function LanguageToggle() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8 }}
-      className="fixed top-4 right-16 z-50 flex rounded-lg border overflow-hidden"
+      className="flex rounded-lg border overflow-hidden"
       style={{ borderColor: 'var(--accent)', backgroundColor: 'var(--background)' }}
       role="group"
       aria-label="Langue / Language"
@@ -32,7 +32,7 @@ export default function LanguageToggle() {
             }}
             aria-pressed={isActive}
             aria-label={language.label}
-            className={`px-2.5 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
+            className={`px-3 py-2 min-h-[44px] text-xs font-bold uppercase tracking-wider transition-colors ${
               isActive
                 ? 'bg-[var(--accent)] text-black'
                 : 'text-[var(--accent)] hover:bg-[var(--accent-soft)]'

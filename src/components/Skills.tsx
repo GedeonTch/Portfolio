@@ -59,7 +59,7 @@ export default function Skills() {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-3xl md:text-4xl font-bold mb-12 text-[var(--accent)]"
+            className="section-title text-3xl md:text-4xl font-bold mb-12 text-[var(--accent)]"
           >
             {t.skills.title}
           </motion.h2>
@@ -69,7 +69,7 @@ export default function Skills() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                className="p-6 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)] hover:scale-105 transition-transform duration-300"
+                className="card-hover-glow p-6 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)] hover:scale-105 transition-transform duration-300"
               >
                 <h3 className="text-xl font-semibold mb-4 text-[var(--accent)]">
                   {skillCategory.category}

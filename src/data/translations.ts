@@ -35,7 +35,37 @@ export interface UiTexts {
     title: string;
     viewOnGithub: string;
     visitSite: string;
+    discoverProject: string;
     featured: string;
+  };
+  labsPage: {
+    title: string;
+    intro: string;
+    capturePending: string;
+    viewRepo: string;
+  };
+  sentinelxPage: {
+    backToProjects: string;
+    headerTag: string;
+    tagline: string;
+    badges: string[];
+    problemTitle: string;
+    problemBody: string;
+    archiTitle: string;
+    archiNote: string;
+    pipeline: string[];
+    modulesTitle: string;
+    modules: { title: string; role: string }[];
+    stackTitle: string;
+    stackItems: string[];
+    statusTitle: string;
+    statusNetlab: { title: string; body: string };
+    statusBranch: { title: string; body: string };
+    roadmapTitle: string;
+    roadmap: { name: string; line: string; badge: string }[];
+    proofTitle: string;
+    proofGithub: string;
+    legalNote: string;
   };
   contact: {
     title: string;
@@ -63,14 +93,14 @@ export interface UiTexts {
 }
 
 const uiFr: UiTexts = {
-  nav: ['Accueil', 'À propos', 'Compétences', 'Outils', 'Projets', 'Contact'],
+  nav: ['Accueil', 'À propos', 'Compétences', 'Outils', 'Projets', 'Labs', 'Contact'],
   hero: {
     viewProjects: 'Voir mes projets',
     downloadCv: 'Télécharger CV',
   },
   audit: {
     header: 'SOC — flux temps réel',
-    live: 'Live',
+    live: 'DEMO',
     templates: [
       'SCAN Analyse du périmètre externe lancée',
       'ALERTE 3 tentatives de connexion suspectes, IP bloquée',
@@ -104,6 +134,7 @@ const uiFr: UiTexts = {
     title: 'Projets',
     viewOnGithub: 'Voir sur GitHub',
     visitSite: 'Visiter le site',
+    discoverProject: 'Découvrir le projet',
     featured: 'FEATURED',
   },
   contact: {
@@ -129,17 +160,76 @@ const uiFr: UiTexts = {
   footer: {
     rights: 'Tous droits réservés.',
   },
+  labsPage: {
+    title: 'Labs',
+    intro: "Les environnements contrôlés dans lesquels sont menés les audits et analyses présentés ici. Chaque laboratoire est documenté par une capture et son dépôt source.",
+    capturePending: 'Capture à venir',
+    viewRepo: 'Voir le dépôt',
+  },
+  sentinelxPage: {
+    backToProjects: '← Retour aux projets',
+    headerTag: 'Audit réseau — V1 NetLab',
+    tagline: "Boîte à outils open source d'audit réseau en environnement contrôlé : détection déterministe par règles, scoring de risque documenté, rapports traçables.",
+    badges: ['GPL v3', 'Python 3.10+', 'En développement actif'],
+    problemTitle: 'Le problème résolu',
+    problemBody: "Apprendre l'audit réseau et la détection de vulnérabilités exige un cadre contrôlé et des résultats explicables. SentinelX applique un principe simple : la détection repose sur des règles déterministes — jamais sur une boîte noire — et chaque score de risque suit une formule documentée dans le code.",
+    archiTitle: 'Architecture modulaire',
+    archiNote: "Un CLI unique (Typer) orchestre le pipeline. Chaque module est indépendant, et les findings sont persistés dans une base SQLite propre à chaque session.",
+    pipeline: ['DISCOVER', 'DETECT', 'ASSESS', 'EXPLAIN', 'LEARN (V2)', 'REMEDIATE', 'VERIFY'],
+    modulesTitle: 'Modules réels (implémentés)',
+    modules: [
+      {
+        title: 'Reconnaissance',
+        role: "Découverte d'actifs : fingerprinting d'appareils, énumération DNS (enregistrements, WHOIS), reconnaissance passive (cache ARP, mDNS).",
+      },
+      {
+        title: 'Détection',
+        role: "Scans TCP/UDP, identification des services avec correspondance CVE, énumération SMB (enum4linux), 7 règles de mauvaise configuration, identifiants par défaut.",
+      },
+      {
+        title: 'Scoring de risque',
+        role: "Chaque finding reçoit un score calculé par une formule inspirée de CVSS, documentée et consultable dans le dépôt.",
+      },
+      {
+        title: 'Rapports',
+        role: 'Exports HTML et JSON par session, avec gabarit au thème sombre/clair et recommandations de remédiation par finding.',
+      },
+      {
+        title: 'Sentinel',
+        role: "Moteur de surveillance : baseline du réseau, monitoring périodique, alertes sur dérive, liste blanche configurable.",
+      },
+    ],
+    stackTitle: 'Stack réelle',
+    stackItems: ['Python 3.10+', 'Typer', 'Rich', 'SQLite', 'dnspython', 'python-whois', 'Jinja2', 'Nmap', 'enum4linux', 'pytest'],
+    statusTitle: "État d'avancement",
+    statusNetlab: {
+      title: 'V1 NetLab — en développement actif',
+      body: "Le pipeline d'audit fonctionne en CLI : scan, persistance des findings par session, scoring, rapport HTML/JSON et rescan de vérification des correctifs.",
+    },
+    statusBranch: {
+      title: 'Version de développement actuelle : branche a4-arena',
+      body: "Le travail le plus récent — coffre d'identifiants chiffré, vérifications FTP/SNMP, nettoyage de laboratoire, intégration continue — se trouve sur la branche a4-arena et n'est pas encore fusionné dans main.",
+    },
+    roadmapTitle: 'Feuille de route',
+    roadmap: [
+      { name: 'Insight — V2', line: "Explications enrichies par IA et priorisation des findings.", badge: 'Planifié' },
+      { name: 'Nexus — V3', line: 'Interface graphique et API unifiées.', badge: 'Planifié' },
+    ],
+    proofTitle: 'Preuves',
+    proofGithub: 'Voir le dépôt sur GitHub',
+    legalNote: "Cadre d'usage : uniquement sur des réseaux possédés ou avec une autorisation écrite explicite.",
+  },
 };
 
 const uiEn: UiTexts = {
-  nav: ['Home', 'About', 'Skills', 'Tools', 'Projects', 'Contact'],
+  nav: ['Home', 'About', 'Skills', 'Tools', 'Projects', 'Labs', 'Contact'],
   hero: {
     viewProjects: 'View my projects',
     downloadCv: 'Download CV',
   },
   audit: {
     header: 'SOC — live feed',
-    live: 'Live',
+    live: 'DEMO',
     templates: [
       'SCAN External perimeter analysis launched',
       'ALERT 3 suspicious login attempts, IP blocked',
@@ -173,6 +263,7 @@ const uiEn: UiTexts = {
     title: 'Projects',
     viewOnGithub: 'View on GitHub',
     visitSite: 'Visit website',
+    discoverProject: 'Explore the project',
     featured: 'FEATURED',
   },
   contact: {
@@ -197,6 +288,65 @@ const uiEn: UiTexts = {
   },
   footer: {
     rights: 'All rights reserved.',
+  },
+  labsPage: {
+    title: 'Labs',
+    intro: 'The controlled environments where the audits and analyses showcased here are performed. Each lab is documented with a capture and its source repository.',
+    capturePending: 'Capture coming soon',
+    viewRepo: 'View repository',
+  },
+  sentinelxPage: {
+    backToProjects: '← Back to projects',
+    headerTag: 'Network auditing — V1 NetLab',
+    tagline: 'Open-source network audit toolkit for controlled environments: deterministic rule-based detection, documented risk scoring, traceable reports.',
+    badges: ['GPL v3', 'Python 3.10+', 'Actively developed'],
+    problemTitle: 'The problem it solves',
+    problemBody: 'Learning network auditing and vulnerability detection requires a controlled framework and explainable results. SentinelX follows one simple principle: detection is based on deterministic rules — never on a black box — and every risk score follows a formula documented in the code.',
+    archiTitle: 'Modular architecture',
+    archiNote: 'A single CLI (Typer) orchestrates the pipeline. Each module is independent, and findings are persisted in a dedicated SQLite database per session.',
+    pipeline: ['DISCOVER', 'DETECT', 'ASSESS', 'EXPLAIN', 'LEARN (V2)', 'REMEDIATE', 'VERIFY'],
+    modulesTitle: 'Real modules (implemented)',
+    modules: [
+      {
+        title: 'Reconnaissance',
+        role: 'Asset discovery: device fingerprinting, DNS enumeration (records, WHOIS), passive recon (ARP cache, mDNS).',
+      },
+      {
+        title: 'Detection',
+        role: 'TCP/UDP scans, service identification with CVE matching, SMB enumeration (enum4linux), 7 misconfiguration rules, default credentials.',
+      },
+      {
+        title: 'Risk scoring',
+        role: 'Every finding receives a score computed with a CVSS-inspired formula, documented and readable in the repository.',
+      },
+      {
+        title: 'Reports',
+        role: 'HTML and JSON exports per session, with a dark/light themed template and per-finding remediation recommendations.',
+      },
+      {
+        title: 'Sentinel',
+        role: 'Monitoring engine: network baseline, periodic monitoring, drift alerts, configurable whitelist.',
+      },
+    ],
+    stackTitle: 'Actual stack',
+    stackItems: ['Python 3.10+', 'Typer', 'Rich', 'SQLite', 'dnspython', 'python-whois', 'Jinja2', 'Nmap', 'enum4linux', 'pytest'],
+    statusTitle: 'Progress status',
+    statusNetlab: {
+      title: 'V1 NetLab — actively developed',
+      body: 'The audit pipeline works from the CLI: scan, per-session finding persistence, scoring, HTML/JSON report, and remediation rescan.',
+    },
+    statusBranch: {
+      title: 'Current development version: a4-arena branch',
+      body: 'The most recent work — encrypted credential vault, FTP/SNMP checks, lab cleanup, continuous integration — lives on the a4-arena branch and has not been merged into main yet.',
+    },
+    roadmapTitle: 'Roadmap',
+    roadmap: [
+      { name: 'Insight — V2', line: 'AI-enriched explanations and finding prioritization.', badge: 'Planned' },
+      { name: 'Nexus — V3', line: 'Unified graphical interface and API.', badge: 'Planned' },
+    ],
+    proofTitle: 'Proofs',
+    proofGithub: 'View the repository on GitHub',
+    legalNote: 'Terms of use: only on networks you own or with explicit written authorization.',
   },
 };
 
@@ -248,19 +398,11 @@ export const contentEn: ContentData = {
   projects: [
     {
       title: 'SentinelX',
-      tag: 'Security ecosystem',
-      description: 'Modular security ecosystem overseeing several sub-projects (NetLab, Insight, Nexus), visually connected as nodes of the same network in the logo/branding.',
-      stack: ['Python', 'Next.js', 'Three.js', 'Docker'],
-      link: 'https://github.com/GedeonTch/sentinelX',
+      tag: 'Network auditing — V1 NetLab',
+      description: 'Open-source (GPL v3) network audit toolkit for controlled environments: reconnaissance, CVE detection, documented risk scoring, HTML and JSON reports, Sentinel monitoring engine.',
+      stack: ['Python', 'Typer', 'SQLite', 'Nmap'],
+      link: '/projets/sentinelx',
       featured: true,
-    },
-    {
-      title: 'NetLab',
-      tag: 'Educational framework',
-      description: 'Open-source educational Python framework to learn pentest phases (reconnaissance, port scanning, host discovery) legally in a controlled environment. Modules: Host Discovery, Port Scanner, Recon Manager. Generates PDF/HTML/JSON reports.',
-      stack: ['Python', 'ReportLab', 'BeautifulSoup'],
-      link: 'https://github.com/GedeonTch/sentinelX',
-      featured: false,
     },
     {
       title: 'MAYUNDO — Malware analysis',
@@ -277,6 +419,24 @@ export const contentEn: ContentData = {
       stack: ['Next.js 14', 'Tailwind CSS', 'Three.js', 'MySQL', 'Prisma'],
       link: 'https://etch-store.vercel.app/',
       featured: false,
+    },
+  ],
+  labs: [
+    {
+      slug: 'sentinelx',
+      title: 'SentinelX — NetLab V1',
+      tag: 'Network audit (lab)',
+      description: 'Audit pipeline executed from the CLI on a lab network: host discovery, port scans, CVE detection, risk scoring, HTML/JSON report.',
+      image: '/labs/sentinelx.png',
+      repoUrl: 'https://github.com/GedeonTch/sentinelX',
+    },
+    {
+      slug: 'mayundo',
+      title: 'MAYUNDO — Forensic investigation',
+      tag: 'Malware analysis in a VM',
+      description: 'Analysis of a JavaScript worm spreading via USB drives, conducted in a controlled VM: static investigation, YARA/Sigma rules, infection evidence.',
+      image: '/labs/mayundo.png',
+      repoUrl: 'https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS',
     },
   ],
   contact: {

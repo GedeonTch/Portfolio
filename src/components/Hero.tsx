@@ -68,6 +68,17 @@ export default function Hero() {
         />
       </div>
 
+      {/* Voile de lisibilité : légère vignette radiale + fondu vers le fond en
+          bas de section, pour que le texte reste net au-dessus de l'emblème */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(ellipse at 30% 40%, transparent 0%, transparent 55%, var(--background) 130%), linear-gradient(to bottom, transparent 70%, var(--background) 100%)',
+        }}
+      />
+
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           {/* Colonne gauche - Photo de profil */}

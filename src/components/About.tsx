@@ -40,9 +40,16 @@ const cardVariants: Variants = {
 export default function About() {
   const { t } = useLanguage();
 
+  // Répartition équilibrée des paragraphes en deux colonnes (2 / 1 avec 3 paragraphes)
+  const midpoint = Math.ceil(t.about.paragraphs.length / 2);
+  const columns = [
+    t.about.paragraphs.slice(0, midpoint),
+    t.about.paragraphs.slice(midpoint),
+  ];
+
   return (
     <section id="about" className="py-20 px-4 relative">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -51,27 +58,32 @@ export default function About() {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-3xl md:text-4xl font-bold mb-8 text-[var(--accent)]"
+            className="section-title text-3xl md:text-4xl font-bold mb-8 text-[var(--accent)]"
           >
             {t.about.title}
           </motion.h2>
 
-          <motion.div
-            variants={cardVariants}
-            className="p-6 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)]"
-          >
-            {t.about.paragraphs.map((paragraph, index) => (
-              <motion.p
-                key={index}
-                variants={itemVariants}
-                className={`text-lg leading-relaxed ${
-                  index < t.about.paragraphs.length - 1 ? 'mb-4' : ''
-                }`}
+          <div className="grid md:grid-cols-2 gap-6">
+            {columns.map((columnParagraphs, columnIndex) => (
+              <motion.div
+                key={columnIndex}
+                variants={cardVariants}
+                className="card-hover-glow p-6 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)]"
               >
-                {paragraph}
-              </motion.p>
+                {columnParagraphs.map((paragraph, index) => (
+                  <motion.p
+                    key={index}
+                    variants={itemVariants}
+                    className={`text-lg leading-relaxed ${
+                      index < columnParagraphs.length - 1 ? 'mb-4' : ''
+                    }`}
+                  >
+                    {paragraph}
+                  </motion.p>
+                ))}
+              </motion.div>
             ))}
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
