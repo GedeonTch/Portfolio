@@ -44,6 +44,8 @@ export interface Lab {
   description: string;
   image: string;
   repoUrl: string;
+  /** Démo hébergée (optionnel) : affiche un bouton « Démo live » sur la carte */
+  demoUrl?: string;
 }
 
 export interface ContentData {

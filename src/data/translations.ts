@@ -43,6 +43,8 @@ export interface UiTexts {
     intro: string;
     capturePending: string;
     viewRepo: string;
+    /** Libellé du bouton de démo hébergée (carte Lab avec demoUrl) */
+    viewDemo: string;
   };
   sentinelxPage: {
     backToProjects: string;
@@ -165,6 +167,7 @@ const uiFr: UiTexts = {
     intro: "Les environnements contrôlés dans lesquels sont menés les audits et analyses présentés ici. Chaque laboratoire est documenté par une capture et son dépôt source.",
     capturePending: 'Capture à venir',
     viewRepo: 'Voir le dépôt',
+    viewDemo: 'Démo live',
   },
   sentinelxPage: {
     backToProjects: '← Retour aux projets',
@@ -294,6 +297,7 @@ const uiEn: UiTexts = {
     intro: 'The controlled environments where the audits and analyses showcased here are performed. Each lab is documented with a capture and its source repository.',
     capturePending: 'Capture coming soon',
     viewRepo: 'View repository',
+    viewDemo: 'Live demo',
   },
   sentinelxPage: {
     backToProjects: '← Back to projects',
@@ -420,6 +424,14 @@ export const contentEn: ContentData = {
       link: 'https://etch-store.vercel.app/',
       featured: false,
     },
+    {
+      title: 'PERMIS+ — Highway code',
+      tag: 'Web application — live demo',
+      description: 'Complete driving-school web app: catalogue of 20 road signs, graded MCQ quizzes with a hint bot, level progression, certifications and an administration area. Deployed online (free hosting: first load 30-60 s).',
+      stack: ['Python', 'FastAPI', 'SQLite', 'JavaScript'],
+      link: 'https://code-route-app.onrender.com',
+      featured: false,
+    },
   ],
   labs: [
     {
@@ -437,6 +449,15 @@ export const contentEn: ContentData = {
       description: 'Analysis of a JavaScript worm spreading via USB drives, conducted in a controlled VM: static investigation, YARA/Sigma rules, infection evidence.',
       image: '/labs/mayundo.png',
       repoUrl: 'https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS',
+    },
+    {
+      slug: 'permis-plus',
+      title: 'PERMIS+ — Online demo',
+      tag: 'Web application (Render)',
+      description: 'Working demo of the highway-code app, deployed as a single service on Render: FastAPI serving the frontend, database reseeded at each startup.',
+      image: '/labs/permis-plus.png',
+      repoUrl: 'https://github.com/GedeonTch/code-route-app',
+      demoUrl: 'https://code-route-app.onrender.com',
     },
   ],
   contact: {

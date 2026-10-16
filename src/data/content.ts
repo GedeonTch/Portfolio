@@ -105,6 +105,14 @@ export const content: ContentData = {
       stack: ["Next.js 14", "Tailwind CSS", "Three.js", "MySQL", "Prisma"],
       link: "https://etch-store.vercel.app/", // Site en production
       featured: false
+    },
+    {
+      title: "PERMIS+ — Code de la route",
+      tag: "Application web — démo live",
+      description: "Application web complète d'auto-école : catalogue de 20 panneaux, quiz QCM notés avec bot d'indices, progression par niveaux, certifications et espace d'administration. Déployée en ligne (hébergement gratuit : premier chargement 30 à 60 s).",
+      stack: ["Python", "FastAPI", "SQLite", "JavaScript"],
+      link: "https://code-route-app.onrender.com",
+      featured: false
     }
   ],
 
@@ -126,6 +134,15 @@ export const content: ContentData = {
       description: "Analyse d'un ver JavaScript se propageant par clé USB, conduite dans une VM contrôlée : investigation statique, règles YARA/Sigma, preuves d'infection.",
       image: "/labs/mayundo.png",
       repoUrl: "https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS"
+    },
+    {
+      slug: "permis-plus",
+      title: "PERMIS+ — Démo en ligne",
+      tag: "Application web (Render)",
+      description: "Démo fonctionnelle de l'application de code de la route, déployée en service unique sur Render : API FastAPI servant le frontend, base re-seedée à chaque démarrage.",
+      image: "/labs/permis-plus.png",
+      repoUrl: "https://github.com/GedeonTch/code-route-app",
+      demoUrl: "https://code-route-app.onrender.com"
     }
   ],
 
