@@ -83,7 +83,8 @@ export default function PageDetailLab() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="zone-labs max-w-4xl mx-auto rounded-xl border border-[var(--border)] p-5 md:p-8"
+          data-team={lab.team}
+          className="zone-labs max-w-4xl mx-auto rounded-xl border border-[var(--team-border,var(--accent))] bg-[var(--card-bg)]/55 p-5 md:p-8"
         >
           <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
             <Link

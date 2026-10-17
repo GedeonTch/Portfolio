@@ -212,14 +212,14 @@ const uiFr: UiTexts = {
   },
   labsPage: {
     title: 'Labs',
-    intro: "Les environnements contrôlés dans lesquels sont menées les attaques simulées, détections et durcissements présentés ici. Deux chambres — Red Team (attaque) et Blue Team (défense / SOC) — complétées par des outils et projets documentés.",
+    intro: "Les environnements contrôlés dans lesquels sont menées les attaques simulées, investigations forensiques, détections et durcissements présentés ici. Deux chambres distinctes : Red Team (opérations offensives) et Blue Team (défense & SOC).",
     capturePending: 'Capture à venir',
     viewRepo: 'Voir le dépôt',
     viewDemo: 'Démo live',
     zoneLabel: '~/laboratoires',
-    chambrePrompt: 'Sélectionnez une chambre pour entrer dans ses laboratoires, ou parcourez directement son contenu :',
-    entrerChambre: 'Entrer dans la chambre',
-    quitterChambre: '← Toutes les chambres',
+    chambrePrompt: 'Cliquez sur un lab pour ouvrir sa fiche, ou sur l’en-tête d’une chambre pour l’isoler :',
+    entrerChambre: 'Isoler cette chambre',
+    quitterChambre: '← Voir les 2 chambres',
     basculerRed: 'Chambre Red Team →',
     basculerBlue: 'Chambre Blue Team →',
     redTeamTitle: 'Red Team',
@@ -227,8 +227,8 @@ const uiFr: UiTexts = {
     redTeamDesc: 'Scénarios offensifs en environnement isolé : reconnaissance, interception réseau, analyse de flux et contremesures.',
     blueTeamTitle: 'Blue Team',
     blueTeamSubtitle: 'Défense & SOC — détection, forensique et durcissement',
-    blueTeamDesc: 'Investigation forensique en VM, règles de détection (YARA/Sigma) et futurs scénarios de durcissement système et supervision (SSH Hardening, Suricata…).',
-    prochainsLabsNote: 'Prochains labs prévus dans cette chambre : SSH Hardening, détection réseau avec Suricata.',
+    blueTeamDesc: 'Investigation forensique en VM, règles de détection (YARA/Sigma) et scénarios de durcissement système et supervision.',
+    prochainsLabsNote: 'Prochains labs prévus : SSH Hardening, détection réseau avec Suricata.',
     brancheVide: 'Aucun lab pour le moment — la chambre est prête, le contenu arrive.',
     outilsTitle: 'Outils & projets documentés',
     outilsIntro: "Audits, analyses et applications déployées : les environnements et projets hors branches offensives/défensives.",
@@ -381,14 +381,14 @@ const uiEn: UiTexts = {
   },
   labsPage: {
     title: 'Labs',
-    intro: 'The controlled environments where the simulated attacks, detections and hardenings showcased here are performed. Two chambers — Red Team (offense) and Blue Team (defense / SOC) — complemented by documented tools and projects.',
+    intro: 'The controlled environments where the simulated attacks, forensic investigations, detections and hardenings showcased here are performed. Two distinct chambers: Red Team (offensive operations) and Blue Team (defense & SOC).',
     capturePending: 'Capture coming soon',
     viewRepo: 'View repository',
     viewDemo: 'Live demo',
     zoneLabel: '~/laboratoires',
-    chambrePrompt: 'Select a chamber to enter its labs, or browse its contents directly:',
-    entrerChambre: 'Enter chamber',
-    quitterChambre: '← All chambers',
+    chambrePrompt: 'Click a lab to open its record, or a chamber header to focus on it:',
+    entrerChambre: 'Focus chamber',
+    quitterChambre: '← View both chambers',
     basculerRed: 'Red Team chamber →',
     basculerBlue: 'Blue Team chamber →',
     redTeamTitle: 'Red Team',
@@ -396,8 +396,8 @@ const uiEn: UiTexts = {
     redTeamDesc: 'Offensive scenarios in an isolated environment: reconnaissance, network interception, flow analysis and countermeasures.',
     blueTeamTitle: 'Blue Team',
     blueTeamSubtitle: 'Defense & SOC — detection, forensics and hardening',
-    blueTeamDesc: 'Forensic investigation in a VM, detection rules (YARA/Sigma) and upcoming system hardening and monitoring scenarios (SSH Hardening, Suricata…).',
-    prochainsLabsNote: 'Upcoming labs planned in this chamber: SSH Hardening, network detection with Suricata.',
+    blueTeamDesc: 'Forensic investigation in a VM, detection rules (YARA/Sigma) and system hardening and monitoring scenarios.',
+    prochainsLabsNote: 'Upcoming labs planned: SSH Hardening, network detection with Suricata.',
     brancheVide: 'No lab yet — the chamber is ready, content coming.',
     outilsTitle: 'Documented tools & projects',
     outilsIntro: 'Audits, analyses and deployed applications: environments and projects outside the offense/defense branches.',
@@ -574,21 +574,12 @@ export const contentEn: ContentData = {
         images: []
       }
     },
-    // ── Documented tools & projects + MAYUNDO also in Blue Team ──
-    {
-      slug: 'sentinelx',
-      title: 'SentinelX — NetLab V1',
-      tag: 'Network audit (lab)',
-      description: 'Audit pipeline executed from the CLI on a lab network: host discovery, port scans, CVE detection, risk scoring, HTML/JSON report.',
-      image: '/labs/sentinelx.png',
-      repoUrl: 'https://github.com/GedeonTch/sentinelX',
-    },
+    // ── Blue Team branch ──
     {
       slug: 'mayundo',
       title: 'MAYUNDO — Forensic investigation',
       tag: 'Malware analysis in a VM (SOC L1/L2)',
       team: 'blue',
-      alsoInTools: true,
       statut: 'termine',
       tags: ['YARA', 'Sigma', 'JavaScript', 'VirtualBox'],
       description: 'Analysis of a JavaScript worm spreading via USB drives, conducted in a controlled VM: static investigation, passive C2 investigation, YARA/Sigma detection rules, forensic infection evidence and remediation script.',
@@ -596,21 +587,12 @@ export const contentEn: ContentData = {
       repoUrl: 'https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS',
       detail: {
         scenario: [
-          'Context: forensic investigation (SOC L1/L2 level) conducted on a JavaScript/JScript worm spreading through removable media (USB drives). The analysis is carried out entirely inside an isolated virtual machine to observe persistence and replication mechanisms without risk of spread.',
-          'Methodology: deobfuscation and static analysis of the malicious script, passive investigation of the C2 infrastructure, collection of infection artefacts in a controlled VM, and identification of a RisePro Stealer co-infection on the analysed drive.',
-          'Detection & remediation: authoring of YARA and Sigma rules for endpoint and SIEM detection, full documentation of Indicators of Compromise (IoCs) and development of a self-verifying cleanup script.'
+          'Context & objective: forensic investigation (SOC L1/L2 level) conducted on a JavaScript/JScript worm spreading through removable media (USB drives), carried out entirely inside an isolated virtual machine.',
+          'Execution: deobfuscation and static analysis of the malicious script, passive investigation of the C2 infrastructure, collection of infection artefacts in a controlled VM, and identification of a RisePro Stealer co-infection.',
+          'Detection & remediation: authoring of YARA and Sigma rules for endpoint and SIEM detection, IoC documentation and development of a self-verifying cleanup script.'
         ],
         images: []
       }
-    },
-    {
-      slug: 'permis-plus',
-      title: 'PERMIS+ — Online demo',
-      tag: 'Web application (Render)',
-      description: 'Working demo of the highway-code app, deployed as a single service on Render: FastAPI serving the frontend, database reseeded at each startup.',
-      image: '/labs/permis-plus.png',
-      repoUrl: 'https://github.com/GedeonTch/code-route-app',
-      demoUrl: 'https://code-route-app.onrender.com',
     },
   ],
   contact: {

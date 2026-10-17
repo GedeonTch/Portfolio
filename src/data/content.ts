@@ -154,9 +154,31 @@ export const content: ContentData = {
       }
     },
     // ── Branche BLUE TEAM — accueille MAYUNDO + futurs labs (SSH Hardening, Suricata…) ──
-    // Exemple prêt à décommenter :
-    /*
     {
+      slug: "mayundo",
+      title: "MAYUNDO — Investigation forensique",
+      tag: "Analyse de malware en VM (SOC L1/L2)",
+      team: "blue",
+      statut: "termine",
+      tags: ["YARA", "Sigma", "JavaScript", "VirtualBox"],
+      description: "Analyse d'un ver JavaScript se propageant par clé USB, conduite dans une VM contrôlée : investigation statique, investigation passive C2, règles de détection YARA/Sigma, preuves forensiques d'infection et script de remédiation.",
+      image: "/labs/mayundo.png",
+      repoUrl: "https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS",
+      detail: {
+        scenario: [
+          "Contexte & objectif : investigation forensique (niveau SOC L1/L2) menée sur un ver JavaScript/JScript se propageant par supports amovibles (clés USB), intégralement conduite dans une machine virtuelle isolée.",
+          "Exécution : désobfuscation et analyse statique du script malveillant, investigation passive de l'infrastructure C2, collecte des artefacts d'infection en VM contrôlée et mise en évidence d'une co-infection par RisePro Stealer.",
+          "Détection & remédiation : rédaction de règles YARA et Sigma pour la détection sur poste et en SIEM, documentation des IoC et développement d'un script de nettoyage auto-vérifiant."
+        ],
+        images: [
+          // Sélection de 4 à 6 captures clés (à déposer dans /public/labs/) :
+          // { src: "/labs/mayundo-01-vm.png", legende: "Environnement d'analyse isolé et artefacts initiaux" },
+        ]
+      }
+    }
+    // Exemple prêt à décommenter pour les prochains labs Blue Team :
+    /*
+    ,{
       slug: "ssh-hardening",
       title: "SSH Hardening",
       tag: "Durcissement système (laboratoire)",
@@ -174,46 +196,8 @@ export const content: ContentData = {
         ],
         images: []
       }
-    },
-    */
-    // ── Outils & projets documentés (hors branches offensives/défensives) ──
-    {
-      slug: "sentinelx",
-      title: "SentinelX — NetLab V1",
-      tag: "Audit réseau (laboratoire)",
-      description: "Pipeline d'audit exécuté en CLI sur un réseau de laboratoire : découverte d'hôtes, scans de ports, détection CVE, scoring de risque, rapport HTML/JSON.",
-      image: "/labs/sentinelx.png",
-      repoUrl: "https://github.com/GedeonTch/sentinelX"
-    },
-    {
-      slug: "mayundo",
-      title: "MAYUNDO — Investigation forensique",
-      tag: "Analyse de malware en VM (SOC L1/L2)",
-      team: "blue",
-      alsoInTools: true,
-      statut: "termine",
-      tags: ["YARA", "Sigma", "JavaScript", "VirtualBox"],
-      description: "Analyse d'un ver JavaScript se propageant par clé USB, conduite dans une VM contrôlée : investigation statique, investigation passive C2, règles de détection YARA/Sigma, preuves forensiques d'infection et script de remédiation.",
-      image: "/labs/mayundo.png",
-      repoUrl: "https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS",
-      detail: {
-        scenario: [
-          "Contexte : investigation forensique (niveau SOC L1/L2) menée sur un ver JavaScript/JScript se propageant par supports amovibles (clés USB). L'analyse est intégralement conduite dans une machine virtuelle isolée afin d'observer les mécanismes de persistance et de réplication sans risque de dissémination.",
-          "Méthodologie : désobfuscation et analyse statique du script malveillant, investigation passive de l'infrastructure C2, collecte des artefacts d'infection en VM contrôlée et mise en évidence d'une co-infection par RisePro Stealer sur le support analysé.",
-          "Détection & remédiation : rédaction de règles YARA et Sigma destinées à la détection sur poste et en SIEM, documentation complète des indicateurs de compromission (IoC) et développement d'un script de nettoyage auto-vérifiant."
-        ],
-        images: []
-      }
-    },
-    {
-      slug: "permis-plus",
-      title: "PERMIS+ — Démo en ligne",
-      tag: "Application web (Render)",
-      description: "Démo fonctionnelle de l'application de code de la route, déployée en service unique sur Render : API FastAPI servant le frontend, base re-seedée à chaque démarrage.",
-      image: "/labs/permis-plus.png",
-      repoUrl: "https://github.com/GedeonTch/code-route-app",
-      demoUrl: "https://code-route-app.onrender.com"
     }
+    */
   ],
 
   // Section Contact

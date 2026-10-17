@@ -12,6 +12,8 @@
   --border: #1a3a2a;
   --card-bg: #0d1b2a;
   --text-muted: #8b9db5;
+  /* Couleur inverse/complémentaire pour les nœuds réseau en fond (ambre chaud sur bleu de nuit) */
+  --node-color: #fbbf24;
 }
 
 /* Thème SOC Alert */
@@ -24,6 +26,8 @@ body.soc {
   --border: #2d2d4a;
   --card-bg: #242442;
   --text-muted: #8b8ba7;
+  /* Couleur inverse/complémentaire pour les nœuds réseau en fond (cyan sur thème SOC) */
+  --node-color: #22d3ee;
 }
 
 body {
@@ -127,12 +131,13 @@ body::before {
 }
 [data-team] {
   --team-soft: color-mix(in srgb, var(--team) 14%, transparent);
+  --team-border: color-mix(in srgb, var(--team) 55%, transparent);
 }
 
 .zone-labs {
   position: relative;
   background-image: radial-gradient(
-    color-mix(in srgb, var(--accent) 8%, transparent) 1px,
+    color-mix(in srgb, var(--accent) 12%, transparent) 1px,
     transparent 1.6px
   );
   background-size: 22px 22px;

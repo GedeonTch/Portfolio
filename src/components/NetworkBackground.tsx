@@ -18,10 +18,10 @@ const NODE_COUNT_MOBILE = 36;
 const CAMERA_FOV = 60;
 const CAMERA_Z = 10;
 const Z_SPREAD = 1.5;          // profondeur légère des nœuds
-const POINT_ALPHA = 0.55;      // discrétion du fond
-const LINK_ALPHA = 0.32;
+const POINT_ALPHA = 0.72;      // nœuds bien lisibles par contraste avec le fond
+const LINK_ALPHA = 0.42;
 const MIN_LINKS = 3;           // chaque nœud est relié à au moins 3 voisins (aucun orphelin)
-const FORCED_LINK_ALPHA = 0.14; // liens "de secours" plus discrets que les liens de proximité
+const FORCED_LINK_ALPHA = 0.18; // liens "de secours" plus discrets que les liens de proximité
 
 interface PlexusSceneProps {
   accentColor: string;
@@ -285,14 +285,19 @@ export default function NetworkBackground() {
     };
   }, []);
 
-  // Couleur lue depuis la variable CSS du thème actif.
-  // Important : lecture différée au prochain frame (rAF). Sans ça, cet effet —
-  // enfant — s'exécute AVANT celui du ThemeProvider qui pose `body.className`,
-  // et la couleur lue serait celle du thème précédent (nœuds désynchronisés).
+  // Couleur des nœuds lue depuis --node-color (couleur inverse du thème : ambre
+  // sur le fond bleu de nuit du thème terminal, cyan sur le thème SOC), avec
+  // repli sur --accent. Lecture différée au prochain frame (rAF) après pose de body.className.
   useEffect(() => {
     const raf = requestAnimationFrame(() => {
-      const value = getComputedStyle(document.body).getPropertyValue('--accent').trim();
-      if (value) setAccentColor(value);
+      const styles = getComputedStyle(document.body);
+      const nodeValue = styles.getPropertyValue('--node-color').trim();
+      const accentValue = styles.getPropertyValue('--accent').trim();
+      if (nodeValue) {
+        setAccentColor(nodeValue);
+      } else if (accentValue) {
+        setAccentColor(accentValue);
+      }
     });
     return () => cancelAnimationFrame(raf);
   }, [theme]);
