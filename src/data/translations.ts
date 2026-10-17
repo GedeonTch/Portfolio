@@ -15,6 +15,7 @@ export interface UiTexts {
   hero: {
     viewProjects: string;
     downloadCv: string;
+    exploreLabs: string;
   };
   audit: {
     header: string;
@@ -37,6 +38,10 @@ export interface UiTexts {
     visitSite: string;
     discoverProject: string;
     featured: string;
+    viewMore: string;
+    allProjectsTitle: string;
+    allProjectsIntro: string;
+    backToHome: string;
   };
   labsPage: {
     title: string;
@@ -45,6 +50,44 @@ export interface UiTexts {
     viewRepo: string;
     /** Libellé du bouton de démo hébergée (carte Lab avec demoUrl) */
     viewDemo: string;
+    /** Fil d'Ariane discret de la zone laboratoires (mono, ex. « ~/laboratoires ») */
+    zoneLabel: string;
+    chambrePrompt: string;
+    entrerChambre: string;
+    quitterChambre: string;
+    basculerRed: string;
+    basculerBlue: string;
+    redTeamTitle: string;
+    redTeamSubtitle: string;
+    redTeamDesc: string;
+    blueTeamTitle: string;
+    blueTeamSubtitle: string;
+    blueTeamDesc: string;
+    prochainsLabsNote: string;
+    /** Message d'une branche encore vide */
+    brancheVide: string;
+    outilsTitle: string;
+    outilsIntro: string;
+    statutTermine: string;
+    statutEnCours: string;
+    statutPlanifie: string;
+    /** Lien d'une carte vers la page détail */
+    voirDetail: string;
+    retourLabs: string;
+    retourChambreRed: string;
+    retourChambreBlue: string;
+    scenarioTitre: string;
+    rapportTitre: string;
+    voirRapport: string;
+    /** Note affichée tant que le lien GitHub du rapport n'est pas encore renseigné */
+    rapportEnPreparation: string;
+    galerieTitre: string;
+    galerieSousTitre: string;
+    introuvableTitre: string;
+    introuvableDetail: string;
+    lightboxFermer: string;
+    lightboxPrecedent: string;
+    lightboxSuivant: string;
   };
   sentinelxPage: {
     backToProjects: string;
@@ -99,6 +142,7 @@ const uiFr: UiTexts = {
   hero: {
     viewProjects: 'Voir mes projets',
     downloadCv: 'Télécharger CV',
+    exploreLabs: 'Explorer mes Labs (Red & Blue Team)',
   },
   audit: {
     header: 'SOC — flux temps réel',
@@ -138,6 +182,10 @@ const uiFr: UiTexts = {
     visitSite: 'Visiter le site',
     discoverProject: 'Découvrir le projet',
     featured: 'FEATURED',
+    viewMore: 'Voir plus de projets',
+    allProjectsTitle: 'Tous les projets',
+    allProjectsIntro: 'Ensemble des projets et réalisations développés en cybersécurité, audit réseau, forensique et développement web.',
+    backToHome: "← Retour à l'accueil",
   },
   contact: {
     title: 'Contact',
@@ -164,10 +212,44 @@ const uiFr: UiTexts = {
   },
   labsPage: {
     title: 'Labs',
-    intro: "Les environnements contrôlés dans lesquels sont menés les audits et analyses présentés ici. Chaque laboratoire est documenté par une capture et son dépôt source.",
+    intro: "Les environnements contrôlés dans lesquels sont menées les attaques simulées, détections et durcissements présentés ici. Deux chambres — Red Team (attaque) et Blue Team (défense / SOC) — complétées par des outils et projets documentés.",
     capturePending: 'Capture à venir',
     viewRepo: 'Voir le dépôt',
     viewDemo: 'Démo live',
+    zoneLabel: '~/laboratoires',
+    chambrePrompt: 'Sélectionnez une chambre pour entrer dans ses laboratoires, ou parcourez directement son contenu :',
+    entrerChambre: 'Entrer dans la chambre',
+    quitterChambre: '← Toutes les chambres',
+    basculerRed: 'Chambre Red Team →',
+    basculerBlue: 'Chambre Blue Team →',
+    redTeamTitle: 'Red Team',
+    redTeamSubtitle: "Attaque — penser comme l'adversaire",
+    redTeamDesc: 'Scénarios offensifs en environnement isolé : reconnaissance, interception réseau, analyse de flux et contremesures.',
+    blueTeamTitle: 'Blue Team',
+    blueTeamSubtitle: 'Défense & SOC — détection, forensique et durcissement',
+    blueTeamDesc: 'Investigation forensique en VM, règles de détection (YARA/Sigma) et futurs scénarios de durcissement système et supervision (SSH Hardening, Suricata…).',
+    prochainsLabsNote: 'Prochains labs prévus dans cette chambre : SSH Hardening, détection réseau avec Suricata.',
+    brancheVide: 'Aucun lab pour le moment — la chambre est prête, le contenu arrive.',
+    outilsTitle: 'Outils & projets documentés',
+    outilsIntro: "Audits, analyses et applications déployées : les environnements et projets hors branches offensives/défensives.",
+    statutTermine: 'Terminé',
+    statutEnCours: 'En cours',
+    statutPlanifie: 'Planifié',
+    voirDetail: 'Ouvrir le lab',
+    retourLabs: '← Retour aux Labs',
+    retourChambreRed: '← Retour à la chambre Red Team',
+    retourChambreBlue: '← Retour à la chambre Blue Team',
+    scenarioTitre: 'Synthèse du scénario',
+    rapportTitre: 'Rapport complet & dépôt source',
+    voirRapport: 'Voir le rapport complet sur GitHub',
+    rapportEnPreparation: "Le dépôt GitHub contenant le rapport complet (README) et l'ensemble des captures sera lié ici dès sa publication.",
+    galerieTitre: 'Captures clés du scénario',
+    galerieSousTitre: "Sélection de 4 à 6 captures clés résumant le scénario — l'intégralité des preuves et le rapport détaillé figurent sur GitHub.",
+    introuvableTitre: 'Lab introuvable',
+    introuvableDetail: "Ce laboratoire n'existe pas (encore), ou le lien est erroné.",
+    lightboxFermer: 'Fermer',
+    lightboxPrecedent: 'Capture précédente',
+    lightboxSuivant: 'Capture suivante',
   },
   sentinelxPage: {
     backToProjects: '← Retour aux projets',
@@ -229,6 +311,7 @@ const uiEn: UiTexts = {
   hero: {
     viewProjects: 'View my projects',
     downloadCv: 'Download CV',
+    exploreLabs: 'Explore my Labs (Red & Blue Team)',
   },
   audit: {
     header: 'SOC — live feed',
@@ -268,6 +351,10 @@ const uiEn: UiTexts = {
     visitSite: 'Visit website',
     discoverProject: 'Explore the project',
     featured: 'FEATURED',
+    viewMore: 'See more projects',
+    allProjectsTitle: 'All projects',
+    allProjectsIntro: 'All projects and achievements built across cybersecurity, network auditing, forensics and web development.',
+    backToHome: '← Back to home',
   },
   contact: {
     title: 'Contact',
@@ -294,10 +381,44 @@ const uiEn: UiTexts = {
   },
   labsPage: {
     title: 'Labs',
-    intro: 'The controlled environments where the audits and analyses showcased here are performed. Each lab is documented with a capture and its source repository.',
+    intro: 'The controlled environments where the simulated attacks, detections and hardenings showcased here are performed. Two chambers — Red Team (offense) and Blue Team (defense / SOC) — complemented by documented tools and projects.',
     capturePending: 'Capture coming soon',
     viewRepo: 'View repository',
     viewDemo: 'Live demo',
+    zoneLabel: '~/laboratoires',
+    chambrePrompt: 'Select a chamber to enter its labs, or browse its contents directly:',
+    entrerChambre: 'Enter chamber',
+    quitterChambre: '← All chambers',
+    basculerRed: 'Red Team chamber →',
+    basculerBlue: 'Blue Team chamber →',
+    redTeamTitle: 'Red Team',
+    redTeamSubtitle: 'Offense — think like the adversary',
+    redTeamDesc: 'Offensive scenarios in an isolated environment: reconnaissance, network interception, flow analysis and countermeasures.',
+    blueTeamTitle: 'Blue Team',
+    blueTeamSubtitle: 'Defense & SOC — detection, forensics and hardening',
+    blueTeamDesc: 'Forensic investigation in a VM, detection rules (YARA/Sigma) and upcoming system hardening and monitoring scenarios (SSH Hardening, Suricata…).',
+    prochainsLabsNote: 'Upcoming labs planned in this chamber: SSH Hardening, network detection with Suricata.',
+    brancheVide: 'No lab yet — the chamber is ready, content coming.',
+    outilsTitle: 'Documented tools & projects',
+    outilsIntro: 'Audits, analyses and deployed applications: environments and projects outside the offense/defense branches.',
+    statutTermine: 'Done',
+    statutEnCours: 'In progress',
+    statutPlanifie: 'Planned',
+    voirDetail: 'Open lab',
+    retourLabs: '← Back to Labs',
+    retourChambreRed: '← Back to Red Team chamber',
+    retourChambreBlue: '← Back to Blue Team chamber',
+    scenarioTitre: 'Scenario summary',
+    rapportTitre: 'Full report & source repository',
+    voirRapport: 'View full report on GitHub',
+    rapportEnPreparation: 'The GitHub repository containing the full report (README) and all captures will be linked here once published.',
+    galerieTitre: 'Key scenario captures',
+    galerieSousTitre: 'Selection of 4 to 6 key captures summarizing the scenario — the full evidence and detailed report live on GitHub.',
+    introuvableTitre: 'Lab not found',
+    introuvableDetail: 'This lab does not exist (yet), or the link is broken.',
+    lightboxFermer: 'Close',
+    lightboxPrecedent: 'Previous capture',
+    lightboxSuivant: 'Next capture',
   },
   sentinelxPage: {
     backToProjects: '← Back to projects',
@@ -434,6 +555,26 @@ export const contentEn: ContentData = {
     },
   ],
   labs: [
+    // ── Red Team branch ──
+    {
+      slug: 'mitm-arp-spoofing',
+      title: 'MITM / ARP Spoofing',
+      tag: 'Network attack (lab)',
+      team: 'red',
+      statut: 'en-cours',
+      tags: ['Bettercap', 'Wireshark', 'tcpdump', 'ARP'],
+      description: 'Standing between two machines on a lab network through ARP cache poisoning. Highlights cleartext traffic interception, packet capture with tcpdump and flow inspection in Wireshark to document countermeasures.',
+      image: '',
+      detail: {
+        scenario: [
+          'Context & objective: two client hosts and one attacker machine share an isolated network segment. Objective: demonstrate how exposed unencrypted flows are to Man-in-the-Middle eavesdropping on the local link.',
+          'Execution: subnet discovery, ARP cache poisoning of both targets with Bettercap, recording of redirected traffic via tcpdump and inspection in Wireshark (filters on cleartext exchanges and frame timeline).',
+          'Security & remediation: systematic encryption of application protocols (TLS/SSH), VLAN segmentation, enabling Dynamic ARP Inspection (DAI) and ARP anomaly detection.'
+        ],
+        images: []
+      }
+    },
+    // ── Documented tools & projects + MAYUNDO also in Blue Team ──
     {
       slug: 'sentinelx',
       title: 'SentinelX — NetLab V1',
@@ -445,10 +586,22 @@ export const contentEn: ContentData = {
     {
       slug: 'mayundo',
       title: 'MAYUNDO — Forensic investigation',
-      tag: 'Malware analysis in a VM',
-      description: 'Analysis of a JavaScript worm spreading via USB drives, conducted in a controlled VM: static investigation, YARA/Sigma rules, infection evidence.',
+      tag: 'Malware analysis in a VM (SOC L1/L2)',
+      team: 'blue',
+      alsoInTools: true,
+      statut: 'termine',
+      tags: ['YARA', 'Sigma', 'JavaScript', 'VirtualBox'],
+      description: 'Analysis of a JavaScript worm spreading via USB drives, conducted in a controlled VM: static investigation, passive C2 investigation, YARA/Sigma detection rules, forensic infection evidence and remediation script.',
       image: '/labs/mayundo.png',
       repoUrl: 'https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS',
+      detail: {
+        scenario: [
+          'Context: forensic investigation (SOC L1/L2 level) conducted on a JavaScript/JScript worm spreading through removable media (USB drives). The analysis is carried out entirely inside an isolated virtual machine to observe persistence and replication mechanisms without risk of spread.',
+          'Methodology: deobfuscation and static analysis of the malicious script, passive investigation of the C2 infrastructure, collection of infection artefacts in a controlled VM, and identification of a RisePro Stealer co-infection on the analysed drive.',
+          'Detection & remediation: authoring of YARA and Sigma rules for endpoint and SIEM detection, full documentation of Indicators of Compromise (IoCs) and development of a self-verifying cleanup script.'
+        ],
+        images: []
+      }
     },
     {
       slug: 'permis-plus',

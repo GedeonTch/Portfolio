@@ -1,4 +1,4 @@
-// Section Projets avec cards
+// Section Projets avec cards : affiche le Top 4 sur l'accueil + bouton « Voir plus » vers /projets
 'use client';
 
 import Link from 'next/link';
@@ -10,8 +10,11 @@ import { Project } from '@/types';
 // Version animée du Link Next (pour les liens internes au site)
 const MotionLink = motion(Link);
 
+const TOP_PROJECTS_LIMIT = 4;
+
 export default function Projects() {
   const { t, data } = useLanguage();
+  const topProjects = data.projects.slice(0, TOP_PROJECTS_LIMIT);
 
   return (
     <section id="projects" className="py-20 px-4 relative">
@@ -27,7 +30,7 @@ export default function Projects() {
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {data.projects.map((project, index) => (
+          {topProjects.map((project, index) => (
             <ProjectCard
               key={index}
               project={project}
@@ -43,12 +46,31 @@ export default function Projects() {
             />
           ))}
         </div>
+
+        {/* Bouton « Voir plus de projets » vers la page /projets (évite de surcharger l'accueil) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-10 flex justify-center"
+        >
+          <Link
+            href="/projets"
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)] text-[var(--accent)] font-semibold transition-all duration-300 hover:bg-[var(--accent)] hover:text-black"
+          >
+            <span>{t.projects.viewMore}</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5-5 5M6 12h12" />
+            </svg>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
 }
 
-function ProjectCard({
+export function ProjectCard({
   project,
   index,
   featuredLabel,

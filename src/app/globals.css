@@ -115,3 +115,25 @@ body::before {
     animation: none;
   }
 }
+/* ─── Zone « laboratoires » (/labs et /labs/[slug]) ─────────────────────────
+   Ambiance technique sobre : trame de points discrète en fond, accents
+   d'équipe par data-team. Aucune animation ajoutée (motion-safe par
+   construction ; la règle prefers-reduced-motion globale couvre le reste). */
+[data-team='red'] {
+  --team: #f87171; /* rouge doux, lisible sur les deux thèmes sombres */
+}
+[data-team='blue'] {
+  --team: #60a5fa;
+}
+[data-team] {
+  --team-soft: color-mix(in srgb, var(--team) 14%, transparent);
+}
+
+.zone-labs {
+  position: relative;
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--accent) 8%, transparent) 1px,
+    transparent 1.6px
+  );
+  background-size: 22px 22px;
+}

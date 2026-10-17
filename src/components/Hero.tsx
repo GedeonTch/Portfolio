@@ -4,6 +4,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTheme } from '@/lib/theme-context';
 import { useLanguage } from '@/lib/language-context';
 
@@ -178,7 +179,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+              className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center md:justify-start"
             >
               <a
                 href="#projects"
@@ -192,6 +193,68 @@ export default function Hero() {
               >
                 {t.hero.downloadCv}
               </a>
+            </motion.div>
+
+            {/* Bouton animé d'accès direct aux Laboratoires (Red Team & Blue Team) */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.95 }}
+              className="mt-5 flex justify-center md:justify-start"
+            >
+              <Link
+                href="/labs"
+                className="group relative inline-flex items-center gap-3 px-5 py-2.5 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)]/90 font-mono text-xs md:text-sm font-semibold text-[var(--foreground)] hover:border-[var(--accent)] transition-all duration-300 hover:scale-[1.03]"
+              >
+                {/* Halo animé discret autour du bouton (désactivé si mouvement réduit) */}
+                {!reducedMotion && (
+                  <motion.span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 rounded-lg"
+                    animate={{
+                      boxShadow: [
+                        `0 0 0px 0px ${accentHex}00`,
+                        `0 0 18px 1px ${accentHex}55`,
+                        `0 0 0px 0px ${accentHex}00`,
+                      ],
+                    }}
+                    transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+                  />
+                )}
+
+                {/* Pastilles Red Team / Blue Team avec pulsation */}
+                <span className="flex items-center gap-1.5" aria-hidden="true">
+                  <span className="relative flex h-2.5 w-2.5">
+                    {!reducedMotion && (
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-[#f87171] opacity-70 animate-ping" />
+                    )}
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#f87171]" />
+                  </span>
+                  <span className="relative flex h-2.5 w-2.5">
+                    {!reducedMotion && (
+                      <span
+                        className="absolute inline-flex h-full w-full rounded-full bg-[#60a5fa] opacity-70 animate-ping"
+                        style={{ animationDelay: '0.6s' }}
+                      />
+                    )}
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#60a5fa]" />
+                  </span>
+                </span>
+
+                <span className="text-[var(--accent)] group-hover:underline">
+                  {t.hero.exploreLabs}
+                </span>
+
+                <svg
+                  className="w-4 h-4 text-[var(--accent)] transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5-5 5M6 12h12" />
+                </svg>
+              </Link>
             </motion.div>
           </motion.div>
         </div>
