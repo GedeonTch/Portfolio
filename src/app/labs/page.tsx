@@ -234,7 +234,7 @@ function ChambreColonne({
   return (
     <div
       data-team={equipe}
-      className="rounded-xl border border-[var(--team-border)] border-t-2 border-t-[var(--team)] bg-[var(--card-bg)]/65 p-4 md:p-5 flex flex-col justify-between"
+      className="group/chambre chambre-box rounded-xl border border-[var(--team-border)] border-t-2 border-t-[var(--team)] bg-[var(--card-bg)]/65 hover:bg-[var(--card-bg)]/85 p-4 md:p-5 flex flex-col justify-between"
     >
       <div>
         {/* En-tête de la chambre */}
@@ -243,13 +243,18 @@ function ChambreColonne({
             <button
               type="button"
               onClick={onBasculerIsolation}
-              className="flex items-center gap-2 text-left group"
+              className="flex items-center gap-2.5 text-left group/titre"
               title={isolee ? t.labsPage.quitterChambre : t.labsPage.entrerChambre}
             >
+              {/* Voyant lumineux réactif au toucher/survol de la chambre */}
+              <span className="relative flex h-3 w-3 items-center justify-center" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--team)] opacity-40 group-hover/chambre:opacity-80 group-hover/chambre:animate-ping" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--team)] shadow-[0_0_8px_var(--team)]" />
+              </span>
               <span aria-hidden className="text-base">
                 {icone}
               </span>
-              <h2 className="text-lg md:text-xl font-bold text-[var(--team)] group-hover:underline">
+              <h2 className="text-lg md:text-xl font-bold text-[var(--team)] group-hover/titre:underline">
                 {titre}
               </h2>
             </button>
@@ -307,7 +312,7 @@ function CarteBranche({ lab, index, t }: { lab: Lab; index: number; t: UiTexts }
     <>
       <div>
         <div className="flex items-start justify-between gap-2 mb-1">
-          <h3 className="font-bold text-sm md:text-base leading-snug group-hover:text-[var(--team)] transition-colors">
+          <h3 className="font-bold text-sm md:text-base leading-snug group-hover/card:text-[var(--team)] transition-colors">
             <BrandText text={lab.title} />
           </h3>
           <LabBadgeStatut statut={lab.statut} t={t} />
@@ -323,7 +328,7 @@ function CarteBranche({ lab, index, t }: { lab: Lab; index: number; t: UiTexts }
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-2 pt-1.5 border-t border-[var(--team-border)]/40">
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[var(--team-border)]/50">
         {lab.tags && lab.tags.length > 0 ? (
           <div className="flex flex-wrap gap-1.5">
             {lab.tags.map((tag) => (
@@ -340,16 +345,20 @@ function CarteBranche({ lab, index, t }: { lab: Lab; index: number; t: UiTexts }
         )}
 
         {urlDetail && (
-          <span className="inline-flex items-center gap-1 font-mono text-xs font-semibold text-[var(--accent)] group-hover:underline shrink-0">
-            {t.labsPage.voirDetail}
+          <span className="lab-cta-btn inline-flex items-center gap-1.5 px-3 py-1 rounded-md border border-[var(--team)] bg-[var(--team-soft)] font-mono text-xs font-bold text-[var(--team)] group-hover/chambre:shadow-[0_0_14px_var(--team-glow)] group-hover/card:bg-[var(--team)] group-hover/card:text-black transition-all duration-200 shrink-0">
+            <span className="relative flex h-2 w-2" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-current opacity-75 animate-ping" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-current" />
+            </span>
+            <span>{t.labsPage.voirDetail}</span>
             <svg
-              className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5"
+              className="w-3.5 h-3.5 transition-transform duration-200 group-hover/card:translate-x-1"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.2"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5-5 5M6 12h12" />
             </svg>
           </span>
         )}
@@ -366,7 +375,7 @@ function CarteBranche({ lab, index, t }: { lab: Lab; index: number; t: UiTexts }
       {urlDetail ? (
         <Link
           href={urlDetail}
-          className="group flex flex-col justify-between h-full rounded-lg border border-[var(--team-border)] hover:border-[var(--team)] bg-[var(--background)]/75 hover:bg-[var(--background)] p-3.5 transition-all"
+          className="group/card flex flex-col justify-between h-full rounded-lg border border-[var(--team-border)] border-l-2 border-l-[var(--team)] hover:border-[var(--team)] bg-[var(--background)]/80 hover:bg-[var(--background)] hover:-translate-y-0.5 hover:shadow-[0_0_20px_-4px_var(--team-glow)] p-3.5 transition-all duration-200"
         >
           {contenu}
         </Link>

@@ -115,14 +115,16 @@ body::before {
     transition-duration: 0.01ms !important;
   }
   
-  .cursor-blink {
-    animation: none;
+  .cursor-blink,
+  .lab-cta-btn {
+    animation: none !important;
   }
 }
+
 /* ─── Zone « laboratoires » (/labs et /labs/[slug]) ─────────────────────────
    Ambiance technique sobre : trame de points discrète en fond, accents
-   d'équipe par data-team. Aucune animation ajoutée (motion-safe par
-   construction ; la règle prefers-reduced-motion globale couvre le reste). */
+   d'équipe par data-team, pulsation douce sur le bouton « Ouvrir le lab »
+   et réaction lumineuse au survol/toucher d'une chambre. */
 [data-team='red'] {
   --team: #f87171; /* rouge doux, lisible sur les deux thèmes sombres */
 }
@@ -130,8 +132,31 @@ body::before {
   --team: #60a5fa;
 }
 [data-team] {
-  --team-soft: color-mix(in srgb, var(--team) 14%, transparent);
+  --team-soft: color-mix(in srgb, var(--team) 16%, transparent);
   --team-border: color-mix(in srgb, var(--team) 55%, transparent);
+  --team-glow: color-mix(in srgb, var(--team) 32%, transparent);
+}
+
+@keyframes labPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  50% {
+    box-shadow: 0 0 14px 1px var(--team-glow);
+  }
+}
+
+.lab-cta-btn {
+  animation: labPulse 2.4s ease-in-out infinite;
+}
+
+.chambre-box {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.chambre-box:hover,
+.chambre-box:focus-within {
+  border-color: var(--team);
+  box-shadow: 0 0 28px -6px var(--team-glow), inset 0 1px 0 0 var(--team);
 }
 
 .zone-labs {
