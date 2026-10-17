@@ -245,6 +245,12 @@ function ChambreColonne({
   isolee: boolean;
   onBasculerIsolation: () => void;
 }) {
+  const libelleActionChambre = isolee
+    ? t.labsPage.quitterChambre
+    : equipe === 'red'
+      ? t.labsPage.entrerRed
+      : t.labsPage.entrerBlue;
+
   return (
     <div
       data-team={equipe}
@@ -253,12 +259,12 @@ function ChambreColonne({
       <div>
         {/* En-tête de la chambre */}
         <div className="pb-3 mb-3.5 border-b border-[var(--team-border)]">
-          <div className="flex items-center justify-between gap-2 mb-1">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
             <button
               type="button"
               onClick={onBasculerIsolation}
               className="flex items-center gap-2.5 text-left group/titre"
-              title={isolee ? t.labsPage.quitterChambre : t.labsPage.entrerChambre}
+              title={libelleActionChambre}
             >
               {/* Voyant lumineux réactif au toucher/survol de la chambre */}
               <span className="relative flex h-3 w-3 items-center justify-center" aria-hidden="true">
@@ -271,20 +277,18 @@ function ChambreColonne({
               <h2 className="text-lg md:text-xl font-bold text-[var(--team)] group-hover/titre:underline">
                 {titre}
               </h2>
-            </button>
-
-            <div className="flex items-center gap-2">
               <span className="font-mono text-[11px] px-2 py-0.5 rounded border border-[var(--team-border)] bg-[var(--team-soft)] text-[var(--team)]">
                 {labs.length} {labs.length > 1 ? 'labs' : 'lab'}
               </span>
-              <button
-                type="button"
-                onClick={onBasculerIsolation}
-                className="font-mono text-[11px] px-2 py-0.5 rounded border border-[var(--team-border)] text-[var(--text-muted)] hover:text-[var(--team)] hover:border-[var(--team)] transition-colors"
-              >
-                {isolee ? t.labsPage.quitterChambre : t.labsPage.entrerChambre}
-              </button>
-            </div>
+            </button>
+
+            <button
+              type="button"
+              onClick={onBasculerIsolation}
+              className="font-mono text-xs font-semibold px-2.5 py-1 rounded-md border border-[var(--team)] bg-[var(--team-soft)] text-[var(--team)] hover:bg-[var(--team)] hover:text-black transition-all duration-200"
+            >
+              {libelleActionChambre}
+            </button>
           </div>
 
           <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--text-muted)] mb-1.5">

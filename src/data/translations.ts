@@ -54,6 +54,8 @@ export interface UiTexts {
     zoneLabel: string;
     chambrePrompt: string;
     entrerChambre: string;
+    entrerRed: string;
+    entrerBlue: string;
     quitterChambre: string;
     basculerRed: string;
     basculerBlue: string;
@@ -219,11 +221,13 @@ const uiFr: UiTexts = {
     viewRepo: 'Voir le dépôt',
     viewDemo: 'Démo live',
     zoneLabel: '~/laboratoires',
-    chambrePrompt: 'Cliquez sur un lab pour ouvrir sa fiche, ou sur l’en-tête d’une chambre pour l’isoler :',
-    entrerChambre: 'Isoler cette chambre',
+    chambrePrompt: 'Cliquez sur « Entrer dans Red Team / Blue Team » pour explorer une chambre, ou ouvrez directement un lab :',
+    entrerChambre: 'Entrer dans la chambre',
+    entrerRed: 'Entrer dans Red Team →',
+    entrerBlue: 'Entrer dans Blue Team →',
     quitterChambre: '← Voir les 2 chambres',
-    basculerRed: 'Chambre Red Team →',
-    basculerBlue: 'Chambre Blue Team →',
+    basculerRed: 'Explorer Red Team →',
+    basculerBlue: 'Explorer Blue Team →',
     redTeamTitle: 'Red Team',
     redTeamSubtitle: "Attaque — penser comme l'adversaire",
     redTeamDesc: 'Scénarios offensifs en environnement isolé : reconnaissance, interception réseau, analyse de flux et contremesures.',
@@ -243,7 +247,7 @@ const uiFr: UiTexts = {
     retourChambreBlue: '← Retour à la chambre Blue Team',
     scenarioTitre: 'Synthèse du scénario',
     recommandationsTitre: 'Recommandations clés',
-    redTeamRepoLabel: 'Voir le dépôt Red-Team-Labs sur GitHub',
+    redTeamRepoLabel: 'Explorer le dépôt Red-Team-Labs sur GitHub',
     rapportTitre: 'Rapport complet & dépôt source',
     voirRapport: 'Voir le rapport complet sur GitHub',
     rapportEnPreparation: "Le dépôt GitHub contenant le rapport complet (README) et l'ensemble des captures sera lié ici dès sa publication.",
@@ -390,11 +394,13 @@ const uiEn: UiTexts = {
     viewRepo: 'View repository',
     viewDemo: 'Live demo',
     zoneLabel: '~/laboratoires',
-    chambrePrompt: 'Click a lab to open its record, or a chamber header to focus on it:',
-    entrerChambre: 'Focus chamber',
+    chambrePrompt: 'Click “Enter Red Team / Blue Team” to explore a chamber, or open a lab directly:',
+    entrerChambre: 'Enter chamber',
+    entrerRed: 'Enter Red Team →',
+    entrerBlue: 'Enter Blue Team →',
     quitterChambre: '← View both chambers',
-    basculerRed: 'Red Team chamber →',
-    basculerBlue: 'Blue Team chamber →',
+    basculerRed: 'Explore Red Team →',
+    basculerBlue: 'Explore Blue Team →',
     redTeamTitle: 'Red Team',
     redTeamSubtitle: 'Offense — think like the adversary',
     redTeamDesc: 'Offensive scenarios in an isolated environment: reconnaissance, network interception, flow analysis and countermeasures.',
@@ -414,7 +420,7 @@ const uiEn: UiTexts = {
     retourChambreBlue: '← Back to Blue Team chamber',
     scenarioTitre: 'Scenario summary',
     recommandationsTitre: 'Key recommendations',
-    redTeamRepoLabel: 'View Red-Team-Labs repository on GitHub',
+    redTeamRepoLabel: 'Explore Red-Team-Labs repository on GitHub',
     rapportTitre: 'Full report & source repository',
     voirRapport: 'View full report on GitHub',
     rapportEnPreparation: 'The GitHub repository containing the full report (README) and all captures will be linked here once published.',
