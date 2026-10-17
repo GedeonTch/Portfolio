@@ -55,8 +55,10 @@ export interface LabImage {
 
 /** Contenu de la page détail d'un lab (/labs/[slug]) — format synthèse (lecture ~30 s) */
 export interface LabDetail {
-  /** Paragraphes courts : contexte/objectif, exécution, impact & remédiation */
+  /** Paragraphes courts : contexte/objectif, méthodologie */
   scenario: string[];
+  /** Résumé des recommandations clés de sécurité (2 à 3 points synthétiques) */
+  recommandations?: string[];
   /** Lien direct vers le README/rapport sur GitHub (si distinct de Lab.repoUrl) */
   rapportUrl?: string;
   /** Sélection de 4 à 6 captures clés résumant le scénario (le reste figure sur GitHub) */

@@ -139,16 +139,38 @@ export default function PageDetailLab() {
           </div>
 
           {/* Scénario */}
-          <section className="mb-9">
-            <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--accent)]/80 mb-4">
+          <section className="mb-8">
+            <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--accent)]/80 mb-3">
               {t.labsPage.scenarioTitre}
             </h2>
-            <div className="space-y-4 text-[var(--foreground)]/90 leading-relaxed">
+            <div className="space-y-3.5 text-sm md:text-base text-[var(--foreground)]/90 leading-relaxed">
               {detail.scenario.map((paragraphe, index) => (
                 <p key={index}>{paragraphe}</p>
               ))}
             </div>
           </section>
+
+          {/* Recommandations clés (résumé synthétique de 2-3 points) */}
+          {detail.recommandations && detail.recommandations.length > 0 && (
+            <section className="mb-8 rounded-lg border border-[var(--team-border,var(--border))] bg-[var(--background)]/65 p-4 md:p-5">
+              <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--team,var(--accent))] mb-3">
+                {t.labsPage.recommandationsTitre}
+              </h2>
+              <ul className="space-y-2 text-sm text-[var(--foreground)]/90 leading-snug">
+                {detail.recommandations.map((rec, index) => (
+                  <li key={index} className="flex items-start gap-2.5">
+                    <span
+                      aria-hidden="true"
+                      className="font-mono text-xs font-bold text-[var(--team,var(--accent))] mt-0.5 shrink-0"
+                    >
+                      ▸
+                    </span>
+                    <span>{rec}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Rapport complet & dépôt GitHub */}
           <section className="mb-9">

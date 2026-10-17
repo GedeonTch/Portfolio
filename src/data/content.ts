@@ -129,27 +129,42 @@ export const content: ContentData = {
     //   3. passer statut à "termine".
     {
       slug: "mitm-arp-spoofing",
-      title: "MITM / ARP Spoofing",
+      title: "ARP Spoofing / MITM",
       tag: "Attaque réseau (laboratoire)",
       team: "red",
-      statut: "en-cours",
-      tags: ["Bettercap", "Wireshark", "tcpdump", "ARP"],
-      description: "Interposition entre deux machines d'un réseau de laboratoire par empoisonnement du cache ARP. Mise en évidence de l'interception de trafic en clair, capture avec tcpdump et analyse dans Wireshark afin de documenter les contremesures.",
-      image: "",
-      // repoUrl: "https://github.com/GedeonTch/...", // À décommenter dès que le dépôt du lab est publié
+      statut: "termine",
+      tags: ["Bettercap", "Wireshark", "tcpdump"],
+      description: "Interception de trafic réseau via empoisonnement de cache ARP sur un réseau isolé, avec extraction d'identifiants en clair.",
+      image: "/labs/arp-spoofing/01-recon-decouverte-hotes.png",
+      repoUrl: "https://github.com/GedeonTch/Red-Team-Labs/tree/main/arp-spoofing",
       detail: {
         scenario: [
-          "Contexte & objectif : deux postes clients et une machine attaquante partagent un même segment réseau isolé. Objectif : démontrer l'exposition des flux non chiffrés à une écoute Man-in-the-Middle sur le lien local.",
-          "Exécution : reconnaissance du sous-réseau, empoisonnement du cache ARP des deux cibles avec Bettercap, enregistrement du trafic redirigé via tcpdump et inspection dans Wireshark (filtres sur les échanges en clair et chronologie des trames).",
-          "Sécurité & remédiation : chiffrement systématique des protocoles applicatifs (TLS/SSH), segmentation VLAN, activation du Dynamic ARP Inspection (DAI) et détection des anomalies ARP."
+          "Contexte & objectif : mission fictive menée pour MicroLogistics SARL au sein d'un réseau de laboratoire isolé (192.168.57.0/24). L'objectif est de démontrer le risque d'une attaque Man-in-the-Middle (MITM) permettant à un attaquant connecté au même segment local d'intercepter des communications non chiffrées.",
+          "Méthodologie : reconnaissance réseau pour identifier les hôtes actifs, empoisonnement du cache ARP de la machine victime via Bettercap (arp.spoof), capture du trafic avec tcpdump et Wireshark, puis interception en clair des identifiants transmis sur la page de connexion simulée (« Portail Interne MicroLogistics SARL »)."
         ],
+        recommandations: [
+          "HTTPS obligatoire : chiffrer systématiquement les flux applicatifs (TLS) et désactiver les protocoles en clair (HTTP, FTP, Telnet).",
+          "Dynamic ARP Inspection (DAI) : activer le filtrage ARP sur les switches gérés pour rejeter les réponses ARP illégitimes.",
+          "Segmentation réseau : cloisonner les segments par VLAN afin de réduire la surface d'exposition locale et surveiller les anomalies ARP."
+        ],
+        rapportUrl: "https://github.com/GedeonTch/Red-Team-Labs/tree/main/arp-spoofing",
         images: [
-          // Sélection de 4 à 6 captures clés (le reste des captures figure sur le dépôt GitHub) :
-          // { src: "/labs/mitm-01-decouverte.png", legende: "Découverte réseau et topologie du laboratoire" },
-          // { src: "/labs/mitm-02-arp-avant-apres.png", legende: "Tables ARP avant / après empoisonnement (Bettercap)" },
-          // { src: "/labs/mitm-03-interception.png", legende: "Interception de trafic et d'identifiants en clair" },
-          // { src: "/labs/mitm-04-wireshark.png", legende: "Filtre Wireshark mettant en évidence le flux intercepté" },
-          // { src: "/labs/mitm-05-securite.png", legende: "Vérification des contremesures et détection ARP" },
+          {
+            src: "/labs/arp-spoofing/01-recon-decouverte-hotes.png",
+            legende: "Reconnaissance réseau : découverte des hôtes actifs sur le sous-réseau"
+          },
+          {
+            src: "/labs/arp-spoofing/02-arp-avant-apres-poisoning.png",
+            legende: "Table ARP de la machine cible avant et après empoisonnement"
+          },
+          {
+            src: "/labs/arp-spoofing/05-interception-post-login.png",
+            legende: "Interception en clair de la requête POST de connexion au portail"
+          },
+          {
+            src: "/labs/arp-spoofing/06-wireshark-follow-http-stream.png",
+            legende: "Analyse Wireshark (Follow HTTP Stream) du flux d'authentification intercepté"
+          }
         ]
       }
     },

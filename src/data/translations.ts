@@ -77,6 +77,8 @@ export interface UiTexts {
     retourChambreRed: string;
     retourChambreBlue: string;
     scenarioTitre: string;
+    recommandationsTitre: string;
+    redTeamRepoLabel: string;
     rapportTitre: string;
     voirRapport: string;
     /** Note affichée tant que le lien GitHub du rapport n'est pas encore renseigné */
@@ -240,6 +242,8 @@ const uiFr: UiTexts = {
     retourChambreRed: '← Retour à la chambre Red Team',
     retourChambreBlue: '← Retour à la chambre Blue Team',
     scenarioTitre: 'Synthèse du scénario',
+    recommandationsTitre: 'Recommandations clés',
+    redTeamRepoLabel: 'Voir le dépôt Red-Team-Labs sur GitHub',
     rapportTitre: 'Rapport complet & dépôt source',
     voirRapport: 'Voir le rapport complet sur GitHub',
     rapportEnPreparation: "Le dépôt GitHub contenant le rapport complet (README) et l'ensemble des captures sera lié ici dès sa publication.",
@@ -409,6 +413,8 @@ const uiEn: UiTexts = {
     retourChambreRed: '← Back to Red Team chamber',
     retourChambreBlue: '← Back to Blue Team chamber',
     scenarioTitre: 'Scenario summary',
+    recommandationsTitre: 'Key recommendations',
+    redTeamRepoLabel: 'View Red-Team-Labs repository on GitHub',
     rapportTitre: 'Full report & source repository',
     voirRapport: 'View full report on GitHub',
     rapportEnPreparation: 'The GitHub repository containing the full report (README) and all captures will be linked here once published.',
@@ -558,20 +564,43 @@ export const contentEn: ContentData = {
     // ── Red Team branch ──
     {
       slug: 'mitm-arp-spoofing',
-      title: 'MITM / ARP Spoofing',
+      title: 'ARP Spoofing / MITM',
       tag: 'Network attack (lab)',
       team: 'red',
-      statut: 'en-cours',
-      tags: ['Bettercap', 'Wireshark', 'tcpdump', 'ARP'],
-      description: 'Standing between two machines on a lab network through ARP cache poisoning. Highlights cleartext traffic interception, packet capture with tcpdump and flow inspection in Wireshark to document countermeasures.',
-      image: '',
+      statut: 'termine',
+      tags: ['Bettercap', 'Wireshark', 'tcpdump'],
+      description: 'Network traffic interception through ARP cache poisoning on an isolated network, with cleartext credential extraction.',
+      image: '/labs/arp-spoofing/01-recon-decouverte-hotes.png',
+      repoUrl: 'https://github.com/GedeonTch/Red-Team-Labs/tree/main/arp-spoofing',
       detail: {
         scenario: [
-          'Context & objective: two client hosts and one attacker machine share an isolated network segment. Objective: demonstrate how exposed unencrypted flows are to Man-in-the-Middle eavesdropping on the local link.',
-          'Execution: subnet discovery, ARP cache poisoning of both targets with Bettercap, recording of redirected traffic via tcpdump and inspection in Wireshark (filters on cleartext exchanges and frame timeline).',
-          'Security & remediation: systematic encryption of application protocols (TLS/SSH), VLAN segmentation, enabling Dynamic ARP Inspection (DAI) and ARP anomaly detection.'
+          'Context & objective: fictional engagement conducted for MicroLogistics SARL on an isolated lab network (192.168.57.0/24). The objective is to demonstrate the risk of a Man-in-the-Middle (MITM) attack allowing an attacker on the same local segment to intercept unencrypted communications.',
+          'Methodology: network reconnaissance to discover live hosts, ARP cache poisoning of the victim workstation via Bettercap (arp.spoof), packet capture with tcpdump and Wireshark, then cleartext interception of credentials submitted to the simulated login portal (“Portail Interne MicroLogistics SARL”).'
         ],
-        images: []
+        recommandations: [
+          'Mandatory HTTPS: systematically encrypt application traffic (TLS) and disable cleartext protocols (HTTP, FTP, Telnet).',
+          'Dynamic ARP Inspection (DAI): enable ARP filtering on managed switches to reject illegitimate ARP replies.',
+          'Network segmentation: isolate segments into VLANs to reduce local exposure and monitor ARP anomalies.'
+        ],
+        rapportUrl: 'https://github.com/GedeonTch/Red-Team-Labs/tree/main/arp-spoofing',
+        images: [
+          {
+            src: '/labs/arp-spoofing/01-recon-decouverte-hotes.png',
+            legende: 'Network reconnaissance: live host discovery on the subnet'
+          },
+          {
+            src: '/labs/arp-spoofing/02-arp-avant-apres-poisoning.png',
+            legende: 'Target ARP table before and after poisoning'
+          },
+          {
+            src: '/labs/arp-spoofing/05-interception-post-login.png',
+            legende: 'Cleartext interception of the portal POST login request'
+          },
+          {
+            src: '/labs/arp-spoofing/06-wireshark-follow-http-stream.png',
+            legende: 'Wireshark analysis (Follow HTTP Stream) of the intercepted authentication flow'
+          }
+        ]
       }
     },
     // ── Blue Team branch ──
