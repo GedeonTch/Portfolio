@@ -164,6 +164,10 @@ export const content: ContentData = {
           {
             src: "/labs/arp-spoofing/06-wireshark-follow-http-stream.png",
             legende: "Analyse Wireshark (Follow HTTP Stream) du flux d'authentification intercepté"
+          },
+          {
+            src: "/labs/arp-spoofing/07-session-victime-vs-interception.png",
+            legende: "Comparaison : session de la victime connectée vs terminal d'interception de l'attaquant"
           }
         ]
       }
@@ -177,17 +181,40 @@ export const content: ContentData = {
       statut: "termine",
       tags: ["YARA", "Sigma", "JavaScript", "VirtualBox"],
       description: "Analyse d'un ver JavaScript se propageant par clé USB, conduite dans une VM contrôlée : investigation statique, investigation passive C2, règles de détection YARA/Sigma, preuves forensiques d'infection et script de remédiation.",
-      image: "/labs/mayundo.png",
+      image: "/labs/mayundo/11-processus-usb.png",
       repoUrl: "https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS",
       detail: {
         scenario: [
-          "Contexte & objectif : investigation forensique (niveau SOC L1/L2) menée sur un ver JavaScript/JScript se propageant par supports amovibles (clés USB), intégralement conduite dans une machine virtuelle isolée.",
-          "Exécution : désobfuscation et analyse statique du script malveillant, investigation passive de l'infrastructure C2, collecte des artefacts d'infection en VM contrôlée et mise en évidence d'une co-infection par RisePro Stealer.",
-          "Détection & remédiation : rédaction de règles YARA et Sigma pour la détection sur poste et en SIEM, documentation des IoC et développement d'un script de nettoyage auto-vérifiant."
+          "Contexte & objectif : investigation forensique (niveau SOC L1/L2) menée sur le ver JavaScript/JScript Mayundo se propageant par clés USB en remplaçant les dossiers par des raccourcis .lnk piégés, validée par une infection contrôlée dans une machine virtuelle VirtualBox isolée.",
+          "Méthodologie : analyse statique du script start.js (et de sa copie locale profile.js), investigation passive de l'infrastructure C2, observation en VM de la multiplication des processus wscript.exe, de l'installation dans %LOCALAPPDATA%\\Microsoft\\Windows\\Explorer et de la clé de persistance registre HKCU\\...\\Run\\Helper."
         ],
+        recommandations: [
+          "Restriction de Windows Script Host (WSH) : désactiver ou restreindre wscript.exe / cscript.exe par GPO sur les postes utilisateurs et bloquer l'exécution de scripts depuis les supports amovibles.",
+          "Détection YARA & SIEM (Sigma) : déployer la règle YARA Mayundo_JS_Worm et alerter sur la création de la clé registre Run\\Helper, des verrous 1.lock / 2.lock et de profile.js dans %LOCALAPPDATA%.",
+          "Procédure de remédiation : arrêt des processus wscript.exe, suppression de profile.js et de la clé Helper, puis restauration des attributs des dossiers cachés sur le support USB."
+        ],
+        rapportUrl: "https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS",
         images: [
-          // Sélection de 4 à 6 captures clés (à déposer dans /public/labs/) :
-          // { src: "/labs/mayundo-01-vm.png", legende: "Environnement d'analyse isolé et artefacts initiaux" },
+          {
+            src: "/labs/mayundo/11-processus-usb.png",
+            legende: "Structure de la clé USB infectée (faux .lnk, vrais dossiers cachés, start.js) et processus wscript.exe actifs"
+          },
+          {
+            src: "/labs/mayundo/05-fichiers-persistants.png",
+            legende: "Installation locale dans %LOCALAPPDATA%\\Microsoft\\Windows\\Explorer : profile.js et verrous 1.lock / 2.lock"
+          },
+          {
+            src: "/labs/mayundo/07-registre-confirme.png",
+            legende: "Persistance au démarrage confirmée dans le registre : clé HKCU\\...\\Run\\Helper pointant vers profile.js"
+          },
+          {
+            src: "/labs/mayundo/13-yara-detection.png",
+            legende: "Détection YARA (règle Mayundo_JS_Worm) confirmant les signatures réseau, fichiers et fonctions du ver"
+          },
+          {
+            src: "/labs/mayundo/09-nettoyage.png",
+            legende: "Exécution du script de nettoyage et validation finale : processus, registre et fichiers persistants supprimés"
+          }
         ]
       }
     }

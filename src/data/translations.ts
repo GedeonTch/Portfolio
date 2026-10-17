@@ -605,6 +605,10 @@ export const contentEn: ContentData = {
           {
             src: '/labs/arp-spoofing/06-wireshark-follow-http-stream.png',
             legende: 'Wireshark analysis (Follow HTTP Stream) of the intercepted authentication flow'
+          },
+          {
+            src: '/labs/arp-spoofing/07-session-victime-vs-interception.png',
+            legende: 'Side-by-side comparison: logged-in victim session vs attacker interception terminal'
           }
         ]
       }
@@ -618,15 +622,41 @@ export const contentEn: ContentData = {
       statut: 'termine',
       tags: ['YARA', 'Sigma', 'JavaScript', 'VirtualBox'],
       description: 'Analysis of a JavaScript worm spreading via USB drives, conducted in a controlled VM: static investigation, passive C2 investigation, YARA/Sigma detection rules, forensic infection evidence and remediation script.',
-      image: '/labs/mayundo.png',
+      image: '/labs/mayundo/11-processus-usb.png',
       repoUrl: 'https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS',
       detail: {
         scenario: [
-          'Context & objective: forensic investigation (SOC L1/L2 level) conducted on a JavaScript/JScript worm spreading through removable media (USB drives), carried out entirely inside an isolated virtual machine.',
-          'Execution: deobfuscation and static analysis of the malicious script, passive investigation of the C2 infrastructure, collection of infection artefacts in a controlled VM, and identification of a RisePro Stealer co-infection.',
-          'Detection & remediation: authoring of YARA and Sigma rules for endpoint and SIEM detection, IoC documentation and development of a self-verifying cleanup script.'
+          'Context & objective: forensic investigation (SOC L1/L2 level) conducted on the Mayundo JavaScript/JScript worm spreading via USB drives by replacing folders with trapped .lnk shortcuts, validated through a controlled infection in an isolated VirtualBox VM.',
+          'Methodology: static analysis of start.js (and its local copy profile.js), passive investigation of the C2 infrastructure, observation in the VM of wscript.exe process multiplication, installation in %LOCALAPPDATA%\\Microsoft\\Windows\\Explorer and the HKCU\\...\\Run\\Helper registry persistence key.'
         ],
-        images: []
+        recommandations: [
+          'Restrict Windows Script Host (WSH): disable or restrict wscript.exe / cscript.exe via GPO on standard workstations and block script execution from removable media.',
+          'YARA & SIEM (Sigma) detection: deploy the Mayundo_JS_Worm YARA rule and alert on the creation of the Run\\Helper registry key, 1.lock / 2.lock lock files and profile.js in %LOCALAPPDATA%.',
+          'Remediation procedure: terminate wscript.exe processes, remove profile.js and the Helper registry key, then restore hidden folder attributes on the USB drive.'
+        ],
+        rapportUrl: 'https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS',
+        images: [
+          {
+            src: '/labs/mayundo/11-processus-usb.png',
+            legende: 'Infected USB drive structure (fake .lnk shortcuts, hidden folders, start.js) and active wscript.exe processes'
+          },
+          {
+            src: '/labs/mayundo/05-fichiers-persistants.png',
+            legende: 'Local installation in %LOCALAPPDATA%\\Microsoft\\Windows\\Explorer: profile.js and 1.lock / 2.lock lock files'
+          },
+          {
+            src: '/labs/mayundo/07-registre-confirme.png',
+            legende: 'Startup persistence confirmed in the registry: HKCU\\...\\Run\\Helper key pointing to profile.js'
+          },
+          {
+            src: '/labs/mayundo/13-yara-detection.png',
+            legende: 'YARA detection (Mayundo_JS_Worm rule) confirming network, file and function signatures of the worm'
+          },
+          {
+            src: '/labs/mayundo/09-nettoyage.png',
+            legende: 'Cleanup script execution and final verification: processes, registry key and persistent files removed'
+          }
+        ]
       }
     },
   ],
