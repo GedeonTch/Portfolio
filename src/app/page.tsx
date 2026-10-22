@@ -5,6 +5,7 @@ import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Tools from '@/components/Tools';
 import Projects from '@/components/Projects';
+import RecentLabs from '@/components/RecentLabs';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import NetworkBackgroundClient from '@/components/NetworkBackgroundClient';
@@ -37,6 +38,10 @@ export default function Home() {
       
       <section id="projects">
         <Projects />
+      </section>
+
+      <section id="recent-labs">
+        <RecentLabs />
       </section>
       
       <section id="contact">

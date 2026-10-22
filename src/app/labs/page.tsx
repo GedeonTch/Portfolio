@@ -157,6 +157,8 @@ export default function LabsPage() {
                     description={t.labsPage.blueTeamDesc}
                     labs={labsBlue}
                     noteProchains={t.labsPage.prochainsLabsNote}
+                    repoBrancheUrl="https://github.com/GedeonTch/Blue-Team-Labs"
+                    repoBrancheLabel={t.labsPage.blueTeamRepoLabel}
                     t={t}
                     isolee={false}
                     onBasculerIsolation={() => changerChambre('blue')}
@@ -196,10 +198,12 @@ export default function LabsPage() {
                     repoBrancheUrl={
                       chambreActive === 'red'
                         ? 'https://github.com/GedeonTch/Red-Team-Labs'
-                        : undefined
+                        : 'https://github.com/GedeonTch/Blue-Team-Labs'
                     }
                     repoBrancheLabel={
-                      chambreActive === 'red' ? t.labsPage.redTeamRepoLabel : undefined
+                      chambreActive === 'red'
+                        ? t.labsPage.redTeamRepoLabel
+                        : t.labsPage.blueTeamRepoLabel
                     }
                     t={t}
                     isolee={true}

@@ -172,7 +172,56 @@ export const content: ContentData = {
         ]
       }
     },
-    // ── Branche BLUE TEAM — accueille MAYUNDO + futurs labs (SSH Hardening, Suricata…) ──
+    // ── Branche BLUE TEAM — les labs les plus récents sont placés en tête ──
+    {
+      slug: "ssh-hardening",
+      title: "SSH Hardening & Fail2ban",
+      tag: "Durcissement système & défense (laboratoire)",
+      team: "blue",
+      statut: "termine",
+      tags: ["OpenSSH", "Fail2ban", "Hydra", "Nmap"],
+      description: "Évaluation d'un service SSH exposé au brute force (Hydra), analyse des journaux /var/log/auth.log, déploiement de Fail2ban et durcissement OpenSSH par authentification par clés uniquement.",
+      image: "/labs/ssh-hardening/02_bruteforce_hydra_avant.png",
+      repoUrl: "https://github.com/GedeonTch/Blue-Team-Labs/tree/main/ssh-hardening",
+      detail: {
+        scenario: [
+          "Contexte & objectif : mission Purple/Blue Team menée pour MicroLogistics SARL sur un réseau de laboratoire isolé (10.0.2.0/24). L'objectif est de démontrer le risque d'un service SSH exposé à une attaque par force brute, puis de mettre en œuvre la remédiation (bannissement dynamique + durcissement du démon SSH) et d'en prouver l'efficacité.",
+          "Méthodologie : reconnaissance du port 22 (Nmap), compromission initiale des comptes cisco et analyst par dictionnaire avec Hydra, corrélation des tentatives dans /var/log/auth.log, déploiement de Fail2ban (maxretry = 3, findtime = 600s, bantime = 1800s) bannissant automatiquement l'IP attaquante, puis durcissement d'OpenSSH par désactivation des mots de passe au profit de l'authentification par clés SSH uniquement."
+        ],
+        recommandations: [
+          "Authentification par clés SSH uniquement : désactiver PasswordAuthentication dans sshd_config et imposer l'usage de clés cryptographiques protégées par passphrase.",
+          "Bannissement automatique (Fail2ban) : activer la prison sshd pour bloquer dynamiquement toute IP dépassant le seuil d'échecs d'authentification.",
+          "Supervision des journaux : surveiller régulièrement /var/log/auth.log afin de détecter les rafales d'échecs et les tentatives d'énumération de comptes."
+        ],
+        rapportUrl: "https://github.com/GedeonTch/Blue-Team-Labs/tree/main/ssh-hardening",
+        images: [
+          {
+            src: "/labs/ssh-hardening/02_bruteforce_hydra_avant.png",
+            legende: "Attaque initiale par force brute (Hydra) compromettant les comptes cisco et analyst"
+          },
+          {
+            src: "/labs/ssh-hardening/05_log_cisco_accepted.png",
+            legende: "Analyse de /var/log/auth.log : rafale d'échecs suivie de l'ouverture de session pour cisco"
+          },
+          {
+            src: "/labs/ssh-hardening/07_fail2ban_config.png",
+            legende: "Configuration de Fail2ban (/etc/fail2ban/jail.local) et activation de la prison sshd"
+          },
+          {
+            src: "/labs/ssh-hardening/08_fail2ban_ban_ip.png",
+            legende: "Bannissement automatique de l'IP attaquante (10.0.2.10) après détection des échecs"
+          },
+          {
+            src: "/labs/ssh-hardening/10_durcissement_cle_ssh.jpg",
+            legende: "Durcissement OpenSSH : refus sans clé (Permission denied publickey) et connexion par clé SSH"
+          },
+          {
+            src: "/labs/ssh-hardening/12_preuve_finale_apres.png",
+            legende: "Preuve finale après durcissement : échec de Hydra (authentification par mot de passe désactivée)"
+          }
+        ]
+      }
+    },
     {
       slug: "mayundo",
       title: "MAYUNDO — Investigation forensique",

@@ -81,6 +81,10 @@ export interface UiTexts {
     scenarioTitre: string;
     recommandationsTitre: string;
     redTeamRepoLabel: string;
+    blueTeamRepoLabel: string;
+    homeSectionTitle: string;
+    homeSectionIntro: string;
+    homeExploreRooms: string;
     rapportTitre: string;
     voirRapport: string;
     /** Note affichée tant que le lien GitHub du rapport n'est pas encore renseigné */
@@ -234,7 +238,7 @@ const uiFr: UiTexts = {
     blueTeamTitle: 'Blue Team',
     blueTeamSubtitle: 'Défense & SOC — détection, forensique et durcissement',
     blueTeamDesc: 'Investigation forensique en VM, règles de détection (YARA/Sigma) et scénarios de durcissement système et supervision.',
-    prochainsLabsNote: 'Prochains labs prévus : SSH Hardening, détection réseau avec Suricata.',
+    prochainsLabsNote: 'Prochain lab prévu : détection réseau avec Suricata.',
     brancheVide: 'Aucun lab pour le moment — la chambre est prête, le contenu arrive.',
     outilsTitle: 'Outils & projets documentés',
     outilsIntro: "Audits, analyses et applications déployées : les environnements et projets hors branches offensives/défensives.",
@@ -248,6 +252,10 @@ const uiFr: UiTexts = {
     scenarioTitre: 'Synthèse du scénario',
     recommandationsTitre: 'Recommandations clés',
     redTeamRepoLabel: 'Explorer le dépôt Red-Team-Labs sur GitHub',
+    blueTeamRepoLabel: 'Explorer le dépôt Blue-Team-Labs sur GitHub',
+    homeSectionTitle: 'Laboratoires récents',
+    homeSectionIntro: 'Aperçu des derniers scénarios offensifs (Red Team) et défensifs (Blue Team) menés en environnement isolé.',
+    homeExploreRooms: 'Explorer les chambres Red Team & Blue Team',
     rapportTitre: 'Rapport complet & dépôt source',
     voirRapport: 'Voir le rapport complet sur GitHub',
     rapportEnPreparation: "Le dépôt GitHub contenant le rapport complet (README) et l'ensemble des captures sera lié ici dès sa publication.",
@@ -407,7 +415,7 @@ const uiEn: UiTexts = {
     blueTeamTitle: 'Blue Team',
     blueTeamSubtitle: 'Defense & SOC — detection, forensics and hardening',
     blueTeamDesc: 'Forensic investigation in a VM, detection rules (YARA/Sigma) and system hardening and monitoring scenarios.',
-    prochainsLabsNote: 'Upcoming labs planned: SSH Hardening, network detection with Suricata.',
+    prochainsLabsNote: 'Upcoming lab planned: network detection with Suricata.',
     brancheVide: 'No lab yet — the chamber is ready, content coming.',
     outilsTitle: 'Documented tools & projects',
     outilsIntro: 'Audits, analyses and deployed applications: environments and projects outside the offense/defense branches.',
@@ -421,6 +429,10 @@ const uiEn: UiTexts = {
     scenarioTitre: 'Scenario summary',
     recommandationsTitre: 'Key recommendations',
     redTeamRepoLabel: 'Explore Red-Team-Labs repository on GitHub',
+    blueTeamRepoLabel: 'Explore Blue-Team-Labs repository on GitHub',
+    homeSectionTitle: 'Recent Labs',
+    homeSectionIntro: 'Snapshot of the latest offensive (Red Team) and defensive (Blue Team) scenarios conducted in an isolated lab.',
+    homeExploreRooms: 'Explore Red Team & Blue Team chambers',
     rapportTitre: 'Full report & source repository',
     voirRapport: 'View full report on GitHub',
     rapportEnPreparation: 'The GitHub repository containing the full report (README) and all captures will be linked here once published.',
@@ -613,7 +625,56 @@ export const contentEn: ContentData = {
         ]
       }
     },
-    // ── Blue Team branch ──
+    // ── Blue Team branch (most recent first) ──
+    {
+      slug: 'ssh-hardening',
+      title: 'SSH Hardening & Fail2ban',
+      tag: 'System hardening & defense (lab)',
+      team: 'blue',
+      statut: 'termine',
+      tags: ['OpenSSH', 'Fail2ban', 'Hydra', 'Nmap'],
+      description: 'Assessment of an SSH service exposed to brute force (Hydra), analysis of /var/log/auth.log, Fail2ban deployment and OpenSSH hardening with key-only authentication.',
+      image: '/labs/ssh-hardening/02_bruteforce_hydra_avant.png',
+      repoUrl: 'https://github.com/GedeonTch/Blue-Team-Labs/tree/main/ssh-hardening',
+      detail: {
+        scenario: [
+          'Context & objective: Purple/Blue Team engagement conducted for MicroLogistics SARL on an isolated lab network (10.0.2.0/24). The objective is to demonstrate the risk of a misconfigured SSH service against brute-force attacks, implement remediation (dynamic banning + SSH daemon hardening) and prove its effectiveness.',
+          'Methodology: port 22 reconnaissance (Nmap), initial dictionary compromise of the cisco and analyst accounts with Hydra, log correlation in /var/log/auth.log, Fail2ban deployment (maxretry = 3, findtime = 600s, bantime = 1800s) automatically banning the attacker IP, then OpenSSH hardening by disabling password authentication in favour of SSH keys only.'
+        ],
+        recommandations: [
+          'SSH key-only authentication: disable PasswordAuthentication in sshd_config and enforce passphrase-protected cryptographic keys.',
+          'Automated banning (Fail2ban): enable the sshd jail to dynamically block any IP exceeding the failed authentication threshold.',
+          'Log monitoring: regularly inspect /var/log/auth.log to detect bursts of authentication failures and account enumeration attempts.'
+        ],
+        rapportUrl: 'https://github.com/GedeonTch/Blue-Team-Labs/tree/main/ssh-hardening',
+        images: [
+          {
+            src: '/labs/ssh-hardening/02_bruteforce_hydra_avant.png',
+            legende: 'Initial brute-force attack (Hydra) compromising the cisco and analyst accounts'
+          },
+          {
+            src: '/labs/ssh-hardening/05_log_cisco_accepted.png',
+            legende: 'Analysis of /var/log/auth.log: burst of failures followed by session opening for cisco'
+          },
+          {
+            src: '/labs/ssh-hardening/07_fail2ban_config.png',
+            legende: 'Fail2ban configuration (/etc/fail2ban/jail.local) and sshd jail activation'
+          },
+          {
+            src: '/labs/ssh-hardening/08_fail2ban_ban_ip.png',
+            legende: 'Automatic ban of the attacker IP (10.0.2.10) after failure detection'
+          },
+          {
+            src: '/labs/ssh-hardening/10_durcissement_cle_ssh.jpg',
+            legende: 'OpenSSH hardening: rejection without key (Permission denied publickey) and SSH key login'
+          },
+          {
+            src: '/labs/ssh-hardening/12_preuve_finale_apres.png',
+            legende: 'Final verification after hardening: Hydra blocked (password authentication disabled)'
+          }
+        ]
+      }
+    },
     {
       slug: 'mayundo',
       title: 'MAYUNDO — Forensic investigation',
