@@ -1,84 +1,13 @@
-// Navigation principale : liens traduits + sélecteurs thème/langue intégrés dans la barre
-// (fix du bug où les boutons flottants coupaient le lien Contact)
 'use client';
-
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/language-context';
 import ThemeToggle from '@/components/ThemeToggle';
 import LanguageToggle from '@/components/LanguageToggle';
-
-// Routes absolues : fonctionnent depuis la page d'accueil et les sous-pages
-// (l'ordre correspond aux libellés de t.nav — Labs inclus)
-const SECTION_HREFS = ['/#hero', '/#about', '/#skills', '/#tools', '/#projects', '/labs', '/#contact'];
-
 export default function Navigation() {
-  const { t } = useLanguage();
-  const pathname = usePathname();
-  const navItems = SECTION_HREFS.map((href, index) => ({
-    name: t.nav[index],
-    href,
-  }));
-
-  return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="fixed top-0 left-0 right-0 z-40 border-b border-[var(--accent)] bg-[var(--background)]/80 backdrop-blur-sm"
-    >
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16 gap-4">
-          {/* Logo */}
-          <a href="/#hero" className="text-xl font-bold text-[var(--accent)] font-mono shrink-0">
-            GC
-          </a>
-
-          {/* Liens de navigation */}
-          <div className="hidden md:flex items-center gap-6 flex-1 justify-center">
-            {navItems.map((item) => {
-              const isActive = item.href === '/labs' && pathname.startsWith('/labs');
-              return (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  aria-current={isActive ? 'page' : undefined}
-                  className={`text-sm font-medium transition-colors ${
-                    isActive ? 'text-[var(--accent)]' : 'text-[var(--foreground)] hover:text-[var(--accent)]'
-                  }`}
-                >
-                  {item.name}
-                </a>
-              );
-            })}
-          </div>
-
-          {/* Menu mobile */}
-          <div className="md:hidden flex-1 flex justify-end">
-            <select
-              onChange={(e) => {
-                const href = e.target.value;
-                if (href) window.location.href = href;
-              }}
-              className="px-3 py-2 rounded border border-[var(--accent)] bg-[var(--card-bg)] text-[var(--foreground)] text-sm"
-              aria-label="Menu"
-            >
-              <option value="">Menu</option>
-              {navItems.map((item) => (
-                <option key={item.href} value={item.href}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Sélecteurs de thème et de langue : dans le flux de la barre */}
-          <div className="flex items-center gap-2 shrink-0">
-            <LanguageToggle />
-            <ThemeToggle />
-          </div>
-        </div>
-      </div>
-    </motion.nav>
-  );
+ const { t, lang } = useLanguage(); const pathname = usePathname(); const [open, setOpen] = useState(false);
+ useEffect(() => { const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); }; window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey); }, []);
+ const items = [ {href:'/#hero', name:t.nav[0]}, {href:'/#about', name:t.nav[1]}, {href:'/#skills', name:lang === 'fr' ? 'Compétences' : 'Skills'}, {href:'/#projects', name:t.nav[4]}, {href:'/labs', name:t.nav[5]}, {href:'/#formation', name:lang === 'fr' ? 'Formation' : 'Education'}, {href:'/#contact', name:t.nav[6]} ];
+ return <nav className="fixed top-0 left-0 right-0 z-40 border-b border-[var(--border)] bg-[var(--background)]/95 backdrop-blur-sm"><div className="max-w-6xl mx-auto px-4"><div className="flex items-center justify-between h-16 gap-3"><Link href="/#hero" className="font-mono text-xl font-bold text-[var(--accent)]" onClick={() => setOpen(false)}>GC</Link><div className="hidden lg:flex items-center gap-4">{items.map(item => <Link key={item.href} href={item.href} aria-current={item.href === '/labs' && pathname.startsWith('/labs') ? 'page' : undefined} className="text-sm hover:text-[var(--accent)]">{item.name}</Link>)}</div><div className="flex items-center gap-2 ml-auto lg:ml-0"><LanguageToggle /><ThemeToggle /><button type="button" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Fermer le menu / Close menu' : 'Ouvrir le menu / Open menu'} onClick={() => setOpen(!open)} className="lg:hidden border border-[var(--border)] rounded px-3 py-2">{open ? '✕' : '☰'}</button></div></div><div id="mobile-menu" hidden={!open} className="lg:hidden pb-4"><div className="flex flex-col gap-1">{items.map(item => <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="px-3 py-2 rounded hover:bg-[var(--card-bg)]">{item.name}</Link>)}</div></div></div></nav>;
 }

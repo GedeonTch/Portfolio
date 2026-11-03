@@ -9,7 +9,7 @@
   --accent: #22d3ee; /* cyan tech froid */
   --accent-secondary: #06b6d4;
   --accent-soft: #22d3ee33; /* accent à ~20 % d'opacité (fonds de badges) */
-  --border: #1a3a2a;
+  --border: #1e3a5f;
   --card-bg: #0d1b2a;
   --text-muted: #8b9db5;
   /* Couleur inverse/complémentaire pour les nœuds réseau en fond (ambre chaud sur bleu de nuit) */
@@ -167,3 +167,7 @@ body::before {
   );
   background-size: 22px 22px;
 }
+
+.card-hover-glow { border-color: var(--border); }
+.card-hover-glow:hover, .card-hover-glow:focus-within { border-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }

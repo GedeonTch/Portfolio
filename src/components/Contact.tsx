@@ -8,7 +8,7 @@ import { useState } from 'react';
 type FormStatus = 'idle' | 'sending' | 'success' | 'error';
 
 export default function Contact() {
-  const { t, data } = useLanguage();
+  const { t, data, lang } = useLanguage();
   const [status, setStatus] = useState<FormStatus>('idle');
 
   // Soumission réelle via fetch : états loading / success / error
@@ -16,6 +16,7 @@ export default function Contact() {
     event.preventDefault();
     // Récupérer les données AVANT tout await (le formulaire est démonté après succès)
     const formData = new FormData(event.currentTarget);
+    if (formData.get('_gotcha')) { setStatus('success'); return; }
     setStatus('sending');
 
     try {
@@ -107,16 +108,9 @@ export default function Contact() {
                 <span className="text-[var(--foreground)]">LinkedIn</span>
               </a>
 
-              {/* CV */}
-              <a
-                href={data.contact.cvPath}
-                className="card-hover-glow flex items-center gap-4 p-4 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)] hover:scale-105 transition-transform duration-300"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span className="text-[var(--foreground)]">{t.contact.downloadCv}</span>
-              </a>
+              <div className="flex items-center gap-4 p-4 rounded-lg border border-[var(--border)] bg-[var(--card-bg)] text-[var(--text-muted)]">
+                {lang === 'fr' ? 'CV bientôt disponible' : 'CV coming soon'}
+              </div>
             </div>
           </motion.div>
 
@@ -225,6 +219,10 @@ export default function Contact() {
                   onSubmit={handleFormSubmit}
                   className="card-hover-glow p-6 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)] space-y-4"
                 >
+                  <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px' }}>
+                    <label htmlFor="contact-website">Website</label>
+                    <input id="contact-website" name="_gotcha" type="text" tabIndex={-1} autoComplete="off" />
+                  </div>
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2 text-[var(--foreground)]">
                       {t.contact.nameLabel}

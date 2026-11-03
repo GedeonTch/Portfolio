@@ -194,3 +194,10 @@ Pour toute question ou problème :
 - Email : tchibanvunyagedeon@gmail.com
 - GitHub : https://github.com/GedeonTch
 - LinkedIn : https://www.linkedin.com/in/gedeon-tchibanvunya-515692356/
+
+### Avant déploiement
+
+- Renseigner `NEXT_PUBLIC_SITE_URL` sur Vercel avec l’URL publique complète (par exemple `https://votre-domaine.vercel.app`) avant le build, pour les métadonnées et le sitemap. Sans cette variable, Next.js utilise localhost pour les liens sociaux et le sitemap est vide.
+- Les certificats présents dans `public/certifications/` sont publics et téléchargeables, y compris leurs noms, dates et identifiants. Vérifier leur contenu avant la mise en ligne.
+- Le formulaire utilise Formspree et un honeypot : vérifier la réception et les protections côté Formspree en production ; un honeypot ne bloque pas tous les spams.
+- Le CV est volontairement indisponible ; les boutons de téléchargement seront à réactiver une fois le document ajouté.

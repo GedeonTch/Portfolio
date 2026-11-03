@@ -5,6 +5,7 @@
 // doté d'un `detail` a sa page ; sans `detail` (ou slug inconnu), on affiche
 // l'écran « Lab introuvable » plutôt qu'un 404 brut.
 'use client';
+import Image from 'next/image';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -253,8 +254,7 @@ export default function PageDetailLab() {
                     aria-label={`${img.legende}`}
                     className="group relative aspect-video overflow-hidden rounded border border-[var(--border)] bg-[var(--background)] cursor-zoom-in"
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element -- miniatures dynamiques ; fallback non nécessaire (chemins déclarés dans le contenu) */}
-                    <img
+                    <Image fill sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                       src={img.src}
                       alt={img.legende}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"

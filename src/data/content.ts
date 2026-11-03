@@ -7,7 +7,7 @@ export const content: ContentData = {
   // Section Hero
   hero: {
     name: "Gédéon Cibanvunya",
-    title: "Étudiant en Informatique de Gestion, orientation Cybersécurité — Université Lumière de Bujumbura (ULBU), Burundi",
+    title: "Informatique de Gestion — Université Lumière de Bujumbura (ULBU) · Cybersécurité en autonomie",
     tagline: "Passionné par l'analyse SOC, le pentest et le développement logiciel de sécurité",
     photoPath: "/photo.jpg", // Photo de profil réelle
   },
@@ -40,37 +40,37 @@ export const content: ContentData = {
   tools: [
     {
       name: "Python",
-      url: "https://www.python.org",
+      url: "/projets/sentinelx",
       icon: "python"
     },
     {
       name: "Kali Linux",
-      url: "https://www.kali.org",
+      url: "/labs/mitm-arp-spoofing",
       icon: "kali"
     },
     {
       name: "Nmap",
-      url: "https://nmap.org",
+      url: "/projets/sentinelx",
       icon: "nmap"
     },
     {
       name: "Docker",
-      url: "https://www.docker.com",
+      url: "/projets",
       icon: "docker"
     },
     {
       name: "Wireshark",
-      url: "https://www.wireshark.org",
+      url: "/labs/mitm-arp-spoofing",
       icon: "wireshark"
     },
     {
       name: "OWASP ZAP",
-      url: "https://www.zaproxy.org",
+      url: "/competences/owasp-zap",
       icon: "zap"
     },
     {
       name: "Wazuh",
-      url: "https://wazuh.com",
+      url: "/competences/wazuh",
       icon: "wazuh"
     },
     {
@@ -95,7 +95,7 @@ export const content: ContentData = {
       tag: "Analyse forensique",
       description: "Analyse complète niveau SOC L1/L2 d'un ver JavaScript/JScript se propageant par clé USB (Afrique subsaharienne). Analyse statique, investigation passive C2, règles YARA/Sigma, guide de remédiation, preuves forensiques d'infection contrôlée en VM, co-infection RisePro Stealer découverte, script de nettoyage auto-vérifiant.",
       stack: ["JavaScript", "YARA", "Sigma", "VirtualBox"],
-      link: "https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS",
+      link: "/labs/mayundo",
       featured: false
     },
     {
@@ -113,6 +113,22 @@ export const content: ContentData = {
       stack: ["Python", "FastAPI", "SQLite", "JavaScript"],
       link: "https://code-route-app.onrender.com",
       featured: false
+    },
+    {
+      title: "CipherChat Web",
+      tag: "Messagerie web — projet pédagogique",
+      description: "Messagerie éphémère avec chiffrement côté navigateur. Dans la version documentée, le serveur connaît le code de chambre et peut dériver la clé : les messages ne sont pas protégés contre lui. Démo sur Render.",
+      stack: ["Python", "FastAPI", "WebSocket", "Web Crypto", "AES-GCM"],
+      link: "https://cipherchat-0fhm.onrender.com/",
+      featured: false
+    },
+    {
+      title: "CipherChat CLI",
+      tag: "Messagerie en ligne de commande",
+      description: "Client de messagerie temps réel avec chiffrement AES-GCM et phrase secrète partagée, relayé par un serveur WebSocket FastAPI. La clé partagée ne garantit pas l’identité individuelle des participants.",
+      stack: ["Python", "FastAPI", "WebSocket", "AES-GCM"],
+      link: "https://github.com/GedeonTch/CipherChat-CLI",
+      featured: false
     }
   ],
 
@@ -127,6 +143,36 @@ export const content: ContentData = {
     //      detail.images dans l'ordre logique du scénario ;
     //   2. renseigner repoUrl (lien vers le dépôt GitHub contenant le README complet) ;
     //   3. passer statut à "termine".
+    {
+      slug: "escalade-privileges-overlayfs",
+      title: "Escalade de privilèges Linux — OverlayFS",
+      tag: "Post-exploitation — CVE-2015-1328",
+      team: "red",
+      statut: "termine",
+      tags: ["Linux", "OverlayFS", "CVE-2015-1328", "SearchSploit"],
+      description: "En laboratoire isolé, un accès utilisateur non privilégié est élevé à root sur Ubuntu 14.04 via un exploit public d’OverlayFS. La validation après remédiation n’a pas été réalisée.",
+      image: "/labs/escalade-privileges/08-exploitation-reussie-root.png",
+      repoUrl: "https://github.com/GedeonTch/Red-Team-Labs/tree/main/EscaladePrivileges",
+      detail: {
+        scenario: [
+          "Contexte : VM Ubuntu 14.04 en laboratoire isolé, avec un accès initial au compte non privilégié karen ; cet accès initial est hors du périmètre du rapport.",
+          "Méthodologie : vérification des permissions et de la version du noyau, recherche d’un exploit public pour CVE-2015-1328, puis compilation et exécution sur la cible. L’accès root est vérifié avec whoami et id."
+        ],
+        recommandations: [
+          "Appliquer les mises à jour de sécurité du noyau fournies par le distributeur, en vérifiant les correctifs rétroportés.",
+          "Limiter les user namespaces non privilégiés lorsque c’est compatible avec les besoins, et surveiller les activités inhabituelles sur les systèmes.",
+          "Validation post-remédiation non réalisée dans ce lab : vérifier l’efficacité des mesures en environnement contrôlé."
+        ],
+        rapportUrl: "https://github.com/GedeonTch/Red-Team-Labs/blob/main/EscaladePrivileges/RAPPORT.md",
+        images: [
+          { src: "/labs/escalade-privileges/01-ssh-acces-initial-karen.png", legende: "Accès SSH initial avec un compte non privilégié" },
+          { src: "/labs/escalade-privileges/02-enumeration-permissions-sudo.png", legende: "Vérification des permissions du compte" },
+          { src: "/labs/escalade-privileges/03-identification-version-kernel.png", legende: "Identification de la version du noyau" },
+          { src: "/labs/escalade-privileges/04-recherche-exploit-searchsploit.png", legende: "Recherche de l’exploit public avec SearchSploit" },
+          { src: "/labs/escalade-privileges/08-exploitation-reussie-root.png", legende: "Accès root confirmé avec whoami et id" }
+        ]
+      }
+    },
     {
       slug: "mitm-arp-spoofing",
       title: "ARP Spoofing / MITM",
@@ -297,7 +343,7 @@ export const content: ContentData = {
     whatsapp: "https://wa.me/25766504165",
     github: "https://github.com/GedeonTch",
     linkedin: "https://www.linkedin.com/in/gedeon-tchibanvunya-515692356/",
-    cvPath: "/cv.pdf", // Remplacer par votre CV PDF
+    cvPath: "", // CV en attente
     formEndpoint: "https://formspree.io/f/xzezgweg" // Endpoint Formspree pour le formulaire de contact
   }
 };
@@ -313,3 +359,51 @@ export const content: ContentData = {
   featured: false // true pour le mettre en avant
 }
 */
+
+// Liens internes des outils : une preuve existante ou une page « à venir ».
+export const toolEvidence: Record<string, string> = {
+  'Python': '/projets/sentinelx', 'Kali Linux': '/labs/mitm-arp-spoofing',
+  'Nmap': '/projets/sentinelx', 'Docker': '/projets',
+  'Wireshark': '/labs/mitm-arp-spoofing', 'OWASP ZAP': '/competences/owasp-zap',
+  'Wazuh': '/competences/wazuh', 'Active Directory (AD DS)': '/competences/active-directory',
+  'SentinelX': '/projets/sentinelx',
+};
+export const plannedSkills = {
+  'wazuh': 'Wazuh', 'owasp-zap': 'OWASP ZAP', 'active-directory': 'Active Directory (AD DS)',
+} as const;
+
+// Parcours : documents publics ajoutés avec l'accord du propriétaire.
+export const education = {
+  fr: {
+    title: 'Formation & certifications',
+    studies: [
+      { school: 'Lycée Madre Elena', detail: 'Commercial et Gestion — diplôme attendu' },
+      { school: 'Université Lumière de Bujumbura', detail: 'Licence en Informatique de Gestion — cursus terminé, diplôme attendu' },
+      { school: 'Cybersécurité', detail: 'Apprentissage autonome' },
+    ],
+    courses: [
+      { name: 'Cisco Networking Academy — Networking Basics', status: 'Certificat obtenu', href: '/certifications/networking-basics.pdf' },
+      { name: 'Introduction to Network Analysis', status: 'Certificat obtenu', href: '/certifications/network-analysis.pdf' },
+      { name: 'Cisco — Ethical Hacker', status: 'En cours', href: '' },
+      { name: 'TryHackMe — cours, labs & CTF', status: 'En apprentissage', href: 'https://tryhackme.com/p/cibanG' },
+      { name: 'Hack The Box', status: 'À venir', href: '' },
+    ],
+    studyLabel: 'Parcours', courseLabel: 'Certifications & pratique', view: 'Voir',
+  },
+  en: {
+    title: 'Education & certifications',
+    studies: [
+      { school: 'Lycée Madre Elena', detail: 'Commerce and Management — diploma pending' },
+      { school: 'Université Lumière de Bujumbura', detail: 'Management Information Systems — coursework completed, diploma pending' },
+      { school: 'Cybersecurity', detail: 'Self-directed learning' },
+    ],
+    courses: [
+      { name: 'Cisco Networking Academy — Networking Basics', status: 'Certificate earned', href: '/certifications/networking-basics.pdf' },
+      { name: 'Introduction to Network Analysis', status: 'Certificate earned', href: '/certifications/network-analysis.pdf' },
+      { name: 'Cisco — Ethical Hacker', status: 'In progress', href: '' },
+      { name: 'TryHackMe — courses, labs & CTF', status: 'Learning', href: 'https://tryhackme.com/p/cibanG' },
+      { name: 'Hack The Box', status: 'Coming soon', href: '' },
+    ],
+    studyLabel: 'Education', courseLabel: 'Certifications & practice', view: 'View',
+  },
+};

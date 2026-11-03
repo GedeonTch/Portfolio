@@ -10,7 +10,7 @@ import { useLanguage } from '@/lib/language-context';
 
 export default function Hero() {
   const { theme } = useTheme();
-  const { t, data } = useLanguage();
+  const { t, data, lang } = useLanguage();
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -86,7 +86,7 @@ export default function Hero() {
       />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="grid md:grid-cols-[minmax(220px,320px)_1fr] gap-8 md:gap-12 items-center">
           {/* Colonne gauche - Photo de profil */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -96,28 +96,7 @@ export default function Hero() {
           >
             <div className="relative">
               {/* Cadre avec bordure animée */}
-              <div className="w-48 h-48 md:w-64 md:h-64 relative border-[var(--accent)] border-2 rounded-lg overflow-hidden bg-gradient-to-br from-transparent to-transparent">
-                {/* Effet de scan sur la bordure */}
-                <motion.div
-                  className="absolute inset-0 border-[var(--accent)] border-2 rounded-lg"
-                  animate={
-                    reducedMotion
-                      ? undefined
-                      : {
-                          boxShadow: [
-                            `0 0 5px ${accentHex}`,
-                            `0 0 20px ${accentHex}`,
-                            `0 0 5px ${accentHex}`,
-                          ],
-                        }
-                  }
-                  transition={
-                    reducedMotion
-                      ? undefined
-                      : { duration: 2, repeat: Infinity, ease: 'easeInOut' }
-                  }
-                />
-
+              <div className="w-48 h-48 md:w-64 md:h-64 relative border-[var(--border)] border rounded-lg overflow-hidden bg-gradient-to-br from-transparent to-transparent">
                 {/* Photo de profil ou placeholder */}
                 <div className="w-full h-full flex items-center justify-center bg-[var(--card-bg)]">
                   {data.hero.photoPath === '/photo-placeholder.svg' ? (
@@ -130,8 +109,9 @@ export default function Hero() {
                       <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                     </svg>
                   ) : (
-                    <img
+                    <Image
                       src={data.hero.photoPath}
+                      width={320} height={320} priority sizes="(max-width: 768px) 192px, 256px"
                       alt="Photo de profil"
                       className="w-full h-full object-cover"
                     />
@@ -187,12 +167,9 @@ export default function Hero() {
               >
                 {t.hero.viewProjects}
               </a>
-              <a
-                href={data.contact.cvPath}
-                className="px-6 py-3 rounded-lg font-semibold border-2 transition-all duration-300 hover:scale-105 border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-black"
-              >
-                {t.hero.downloadCv}
-              </a>
+              <span className="px-6 py-3 rounded-lg font-semibold border border-[var(--border)] text-[var(--text-muted)]">
+                {lang === 'fr' ? 'CV bientôt disponible' : 'CV coming soon'}
+              </span>
             </motion.div>
 
             {/* Bouton animé d'accès direct aux Laboratoires (Red Team & Blue Team) */}
@@ -329,7 +306,7 @@ function AuditLogs({ reducedMotion }: { reducedMotion: boolean }) {
         </span>
         <span className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-[var(--accent)]">
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
+            {!reducedMotion && <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />}
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent)]" />
           </span>
           {t.audit.live}

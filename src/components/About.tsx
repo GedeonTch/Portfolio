@@ -40,12 +40,6 @@ const cardVariants: Variants = {
 export default function About() {
   const { t } = useLanguage();
 
-  // Répartition équilibrée des paragraphes en deux colonnes (2 / 1 avec 3 paragraphes)
-  const midpoint = Math.ceil(t.about.paragraphs.length / 2);
-  const columns = [
-    t.about.paragraphs.slice(0, midpoint),
-    t.about.paragraphs.slice(midpoint),
-  ];
 
   return (
     <section id="about" className="py-20 px-4 relative">
@@ -63,26 +57,14 @@ export default function About() {
             {t.about.title}
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {columns.map((columnParagraphs, columnIndex) => (
-              <motion.div
-                key={columnIndex}
-                variants={cardVariants}
-                className="card-hover-glow p-6 rounded-lg border border-[var(--accent)] bg-[var(--card-bg)]"
-              >
-                {columnParagraphs.map((paragraph, index) => (
-                  <motion.p
-                    key={index}
-                    variants={itemVariants}
-                    className={`text-lg leading-relaxed ${
-                      index < columnParagraphs.length - 1 ? 'mb-4' : ''
-                    }`}
-                  >
-                    {paragraph}
-                  </motion.p>
-                ))}
-              </motion.div>
-            ))}
+          <div className="grid md:grid-cols-[2fr_1fr] gap-8 items-start">
+            <motion.div variants={cardVariants} className="space-y-4">
+              {t.about.paragraphs.map((paragraph, index) => <motion.p key={index} variants={itemVariants} className="text-lg leading-relaxed">{paragraph}</motion.p>)}
+            </motion.div>
+            <div className="p-6 rounded-lg border border-[var(--border)] bg-[var(--card-bg)]">
+              <p className="font-mono text-sm text-[var(--accent)] mb-4">ULBU · CYBER</p>
+              <p>Informatique de Gestion</p><p className="text-[var(--text-muted)] mt-2">SOC · Pentest · Développement sécurité</p>
+            </div>
           </div>
         </motion.div>
       </div>

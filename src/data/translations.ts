@@ -153,27 +153,19 @@ const uiFr: UiTexts = {
     exploreLabs: 'Explorer mes Labs (Red & Blue Team)',
   },
   audit: {
-    header: 'SOC — flux temps réel',
+    header: 'Simulation — inspirée des labs',
     live: 'DEMO',
     templates: [
-      'SCAN Analyse du périmètre externe lancée',
-      'ALERTE 3 tentatives de connexion suspectes, IP bloquée',
-      'ACTION Compte verrouillé, client notifié en 41 s',
-      'INFO Correctif critique déployé sur 12 serveurs',
-      'SCAN 0 vulnérabilité critique détectée ce matin',
-      'INFO Sauvegarde nocturne vérifiée, 142/142 actifs OK',
-      'SCAN Corrélation SIEM : 2 IOC confirmés sur le segment DMZ',
-      'ACTION Règle YARA déployée sur le parc, 0 faux positif',
-      'INFO Honeypot contacté 7 fois cette nuit, signatures mises à jour',
-      'ALERTE Pic de trafic DNS inhabituel, analyse en cours',
-      'ACTION Ad IP isolée du VLAN, ticket SOC-2481 ouvert',
-      'INFO Rotation des clés API terminée, périmètre sain',
+      '[FAIL2BAN] sshd — tentative de connexion bloquée',
+      '[YARA] Analyse du malware MAYUNDO',
+      '[ARP] Trafic analysé dans un réseau de lab',
+      '[SENTINELX] Audit réseau en environnement contrôlé',
     ],
   },
   about: {
     title: 'À propos',
     paragraphs: [
-      "Étudiant en Informatique de Gestion avec spécialisation en cybersécurité à l'Université Lumière de Bujumbura (ULBU), Burundi. Originaire de Bukavu en République Démocratique du Congo.",
+      "Cursus en Informatique de Gestion terminé à l'Université Lumière de Bujumbura (ULBU), Burundi, diplôme attendu. Apprentissage autonome de la cybersécurité. Originaire de Bukavu en République Démocratique du Congo.",
       "Passionné par l'analyse SOC (Security Operations Center), les tests d'intrusion et le développement de logiciels orientés sécurité. Mon objectif est de contribuer à la protection des infrastructures critiques et des données sensibles.",
       "Approche professionnelle et méthodique, axée sur l'apprentissage continu et l'application pratique des concepts de cybersécurité dans des environnements réels.",
     ],
@@ -330,27 +322,19 @@ const uiEn: UiTexts = {
     exploreLabs: 'Explore my Labs (Red & Blue Team)',
   },
   audit: {
-    header: 'SOC — live feed',
+    header: 'Simulation — inspired by labs',
     live: 'DEMO',
     templates: [
-      'SCAN External perimeter analysis launched',
-      'ALERT 3 suspicious login attempts, IP blocked',
-      'ACTION Account locked, client notified in 41 s',
-      'INFO Critical patch deployed on 12 servers',
-      'SCAN 0 critical vulnerabilities detected this morning',
-      'INFO Nightly backup verified, 142/142 assets OK',
-      'SCAN SIEM correlation: 2 IOCs confirmed on the DMZ segment',
-      'ACTION YARA rule deployed fleet-wide, 0 false positives',
-      'INFO Honeypot hit 7 times overnight, signatures updated',
-      'ALERT Unusual DNS traffic spike, analysis in progress',
-      'ACTION Host isolated from VLAN, ticket SOC-2481 opened',
-      'INFO API key rotation complete, perimeter healthy',
+      '[FAIL2BAN] sshd — login attempt blocked',
+      '[YARA] MAYUNDO malware analysis',
+      '[ARP] Lab network traffic analyzed',
+      '[SENTINELX] Network audit in controlled environment',
     ],
   },
   about: {
     title: 'About',
     paragraphs: [
-      'Business Computing student specializing in Cybersecurity at Lumière University of Bujumbura (ULBU), Burundi. Originally from Bukavu, Democratic Republic of the Congo.',
+      'Completed coursework in Management Information Systems at Lumière University of Bujumbura (ULBU), Burundi; diploma pending. Self-directed cybersecurity learning. Originally from Bukavu, Democratic Republic of the Congo.',
       'Passionate about SOC (Security Operations Center) analysis, penetration testing and security-oriented software development. My goal is to help protect critical infrastructure and sensitive data.',
       'A professional, methodical approach focused on continuous learning and hands-on application of cybersecurity concepts in real-world environments.',
     ],
@@ -508,7 +492,7 @@ export const ui: Record<Language, UiTexts> = {
 export const contentEn: ContentData = {
   hero: {
     name: 'Gédéon Cibanvunya',
-    title: 'Business Computing student specializing in Cybersecurity — Lumière University of Bujumbura (ULBU), Burundi',
+    title: 'Management Information Systems — Lumière University of Bujumbura (ULBU) · Self-directed cybersecurity learning',
     tagline: 'Passionate about SOC analysis, pentesting and security-focused software development',
     photoPath: '/photo.jpg',
   },
@@ -558,7 +542,7 @@ export const contentEn: ContentData = {
       tag: 'Forensic analysis',
       description: 'Full SOC L1/L2-level analysis of a JavaScript/JScript worm spreading via USB drives (sub-Saharan Africa). Static analysis, passive C2 investigation, YARA/Sigma rules, remediation guide, forensic evidence from a controlled VM infection, RisePro Stealer co-infection discovered, self-verifying cleanup script.',
       stack: ['JavaScript', 'YARA', 'Sigma', 'VirtualBox'],
-      link: 'https://github.com/GedeonTch/MAYUNDO-MALWARE-ANALYSIS',
+      link: '/labs/mayundo',
       featured: false,
     },
     {
@@ -577,9 +561,55 @@ export const contentEn: ContentData = {
       link: 'https://code-route-app.onrender.com',
       featured: false,
     },
+    {
+      title: 'CipherChat Web',
+      tag: 'Web messaging — educational project',
+      description: 'Ephemeral messaging with browser-side encryption. In the documented version, the server knows the room code and can derive the key: messages are not protected from the server. Render demo.',
+      stack: ['Python', 'FastAPI', 'WebSocket', 'Web Crypto', 'AES-GCM'],
+      link: 'https://cipherchat-0fhm.onrender.com/',
+      featured: false,
+    },
+    {
+      title: 'CipherChat CLI',
+      tag: 'Command-line messaging',
+      description: 'Real-time messaging client with AES-GCM and a shared passphrase, relayed by a FastAPI WebSocket server. A shared key does not establish each participant’s individual identity.',
+      stack: ['Python', 'FastAPI', 'WebSocket', 'AES-GCM'],
+      link: 'https://github.com/GedeonTch/CipherChat-CLI',
+      featured: false,
+    },
   ],
   labs: [
     // ── Red Team branch ──
+    {
+      slug: 'escalade-privileges-overlayfs',
+      title: 'Linux privilege escalation — OverlayFS',
+      tag: 'Post-exploitation — CVE-2015-1328',
+      team: 'red',
+      statut: 'termine',
+      tags: ['Linux', 'OverlayFS', 'CVE-2015-1328', 'SearchSploit'],
+      description: 'In an isolated lab, an unprivileged user gains root on Ubuntu 14.04 using a public OverlayFS exploit. Post-remediation validation was not performed.',
+      image: '/labs/escalade-privileges/08-exploitation-reussie-root.png',
+      repoUrl: 'https://github.com/GedeonTch/Red-Team-Labs/tree/main/EscaladePrivileges',
+      detail: {
+        scenario: [
+          'Context: an isolated Ubuntu 14.04 lab VM, with initial access to the unprivileged karen account; initial access is outside the scope of the report.',
+          'Method: check permissions and kernel version, research a public CVE-2015-1328 exploit, then compile and run it on the target. Root access is verified with whoami and id.'
+        ],
+        recommandations: [
+          'Apply vendor-provided kernel security updates, taking backported fixes into account.',
+          'Restrict unprivileged user namespaces where compatible with operational needs, and monitor unusual activity.',
+          'Post-remediation validation was not performed in this lab: verify the measures in a controlled environment.'
+        ],
+        rapportUrl: 'https://github.com/GedeonTch/Red-Team-Labs/blob/main/EscaladePrivileges/RAPPORT.md',
+        images: [
+          { src: '/labs/escalade-privileges/01-ssh-acces-initial-karen.png', legende: 'Initial SSH access with an unprivileged account' },
+          { src: '/labs/escalade-privileges/02-enumeration-permissions-sudo.png', legende: 'Checking account permissions' },
+          { src: '/labs/escalade-privileges/03-identification-version-kernel.png', legende: 'Identifying the kernel version' },
+          { src: '/labs/escalade-privileges/04-recherche-exploit-searchsploit.png', legende: 'Finding the public exploit with SearchSploit' },
+          { src: '/labs/escalade-privileges/08-exploitation-reussie-root.png', legende: 'Root access confirmed with whoami and id' }
+        ]
+      }
+    },
     {
       slug: 'mitm-arp-spoofing',
       title: 'ARP Spoofing / MITM',
@@ -726,7 +756,7 @@ export const contentEn: ContentData = {
     whatsapp: 'https://wa.me/25766504165',
     github: 'https://github.com/GedeonTch',
     linkedin: 'https://www.linkedin.com/in/gedeon-tchibanvunya-515692356/',
-    cvPath: '/cv.pdf',
+    cvPath: '',
     formEndpoint: 'https://formspree.io/f/xzezgweg',
   },
 };
