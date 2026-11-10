@@ -499,7 +499,7 @@ export const contentEn: ContentData = {
   skills: [
     {
       category: 'Offensive/defensive security',
-      items: ['Pentest', 'Malware analysis', 'OSINT', 'YARA/Sigma'],
+      items: ['Pentest', 'Malware analysis', 'Log analysis', 'OSINT', 'YARA/Sigma'],
     },
     {
       category: 'Networking',
@@ -515,7 +515,7 @@ export const contentEn: ContentData = {
     },
     {
       category: 'Security tools',
-      items: ['Kali Linux', 'VirtualBox', 'Docker', 'Wireshark', 'OWASP ZAP', 'SentinelX', 'Wazuh'],
+      items: ['Kali Linux', 'VirtualBox', 'Docker', 'Wireshark', 'OWASP ZAP', 'Burp Suite', 'GVM', 'SentinelX', 'Wazuh'],
     },
   ],
   tools: [
@@ -656,6 +656,36 @@ export const contentEn: ContentData = {
       }
     },
     // ── Blue Team branch (most recent first) ──
+    {
+      slug: 'forensics-ir-h4cked',
+      title: 'Forensics & Incident Response — Network analysis',
+      tag: 'Network investigation — educational scenario',
+      team: 'blue',
+      statut: 'termine',
+      tags: ['Wireshark', 'Forensics', 'Incident Response', 'FTP'],
+      description: 'Investigation of a fictional incident using a network capture, followed by controlled reproduction of the scenario. Educational lab based on the TryHackMe h4cked room.',
+      image: '/labs/forensics-ir/01-ftp-bruteforce-usernames.png',
+      repoUrl: 'https://github.com/GedeonTch/Blue-Team-Labs/tree/main/Forensics_IR',
+      detail: {
+        scenario: [
+          'Context: the fictional TransKivu Logistique SARL scenario is based on the TryHackMe h4cked room. A network capture is analyzed to reconstruct an intrusion, followed by a lab reproduction.',
+          'Investigation: FTP attempts and login, upload of a PHP file, then observation of a shell and privilege escalation. The reported Reptile rootkit installation attempt failed; controlled reproduction also explores direct SSH access.'
+        ],
+        recommandations: [
+          'Strengthen passwords, avoid reuse and review sudo permissions under least privilege.',
+          'Replace cleartext FTP with secure file transfer; isolate file uploads and prevent script execution in upload directories.',
+          'Restrict and monitor outbound connections; investigate network anomalies.'
+        ],
+        rapportUrl: 'https://github.com/GedeonTch/Blue-Team-Labs/blob/main/Forensics_IR/RAPPORT_INCIDENT.md',
+        images: [
+          { src: '/labs/forensics-ir/01-ftp-bruteforce-usernames.png', legende: 'Repeated FTP connections in the capture' },
+          { src: '/labs/forensics-ir/03-ftp-login-success.png', legende: 'FTP authentication and file upload' },
+          { src: '/labs/forensics-ir/04-ftp-session-stor-chmod.png', legende: 'Reconstructed FTP control stream' },
+          { src: '/labs/forensics-ir/06-reverse-shell-tty-wwwdata.png', legende: 'Analysis of the session and shell in network traffic' },
+          { src: '/labs/forensics-ir/07-privesc-sudo-root-clone.png', legende: 'Privilege escalation and attempted Reptile clone' }
+        ]
+      }
+    },
     {
       slug: 'ssh-hardening',
       title: 'SSH Hardening & Fail2ban',

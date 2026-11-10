@@ -16,7 +16,7 @@ export const content: ContentData = {
   skills: [
     {
       category: "Sécurité offensive/défensive",
-      items: ["Pentest", "Analyse malware", "OSINT", "YARA/Sigma"]
+      items: ["Pentest", "Analyse malware", "Analyse des logs", "OSINT", "YARA/Sigma"]
     },
     {
       category: "Réseau",
@@ -32,7 +32,7 @@ export const content: ContentData = {
     },
     {
       category: "Outils de sécurité",
-      items: ["Kali Linux", "VirtualBox", "Docker", "Wireshark", "OWASP ZAP", "SentinelX", "Wazuh"]
+      items: ["Kali Linux", "VirtualBox", "Docker", "Wireshark", "OWASP ZAP", "Burp Suite", "GVM", "SentinelX", "Wazuh"]
     }
   ],
 
@@ -220,6 +220,36 @@ export const content: ContentData = {
     },
     // ── Branche BLUE TEAM — les labs les plus récents sont placés en tête ──
     {
+      slug: "forensics-ir-h4cked",
+      title: "Forensics & Incident Response — Analyse réseau",
+      tag: "Investigation réseau — scénario pédagogique",
+      team: "blue",
+      statut: "termine",
+      tags: ["Wireshark", "Forensics", "Incident Response", "FTP"],
+      description: "Investigation d’un incident fictif à partir d’une capture réseau, puis reproduction contrôlée du scénario. Lab pédagogique basé sur la room TryHackMe h4cked.",
+      image: "/labs/forensics-ir/01-ftp-bruteforce-usernames.png",
+      repoUrl: "https://github.com/GedeonTch/Blue-Team-Labs/tree/main/Forensics_IR",
+      detail: {
+        scenario: [
+          "Contexte : scénario fictif TransKivu Logistique SARL basé sur la room TryHackMe h4cked. Analyse d’une capture réseau pour reconstituer une intrusion, suivie d’une reproduction en laboratoire.",
+          "Investigation : tentatives et connexion FTP, dépôt d’un fichier PHP, puis observation d’un shell et d’une élévation de privilèges. Une tentative d’installation du rootkit Reptile est rapportée comme ayant échoué ; la reproduction contrôlée explore aussi un accès SSH direct."
+        ],
+        recommandations: [
+          "Renforcer les mots de passe, éviter leur réutilisation et revoir les droits sudo selon le principe du moindre privilège.",
+          "Remplacer FTP en clair par un transfert sécurisé ; isoler les dépôts de fichiers et empêcher l’exécution de scripts dans les répertoires d’upload.",
+          "Limiter et surveiller les connexions sortantes ; investiguer les anomalies réseau."
+        ],
+        rapportUrl: "https://github.com/GedeonTch/Blue-Team-Labs/blob/main/Forensics_IR/RAPPORT_INCIDENT.md",
+        images: [
+          { src: "/labs/forensics-ir/01-ftp-bruteforce-usernames.png", legende: "Connexions FTP répétées dans la capture" },
+          { src: "/labs/forensics-ir/03-ftp-login-success.png", legende: "Authentification FTP et dépôt du fichier" },
+          { src: "/labs/forensics-ir/04-ftp-session-stor-chmod.png", legende: "Reconstitution du flux de contrôle FTP" },
+          { src: "/labs/forensics-ir/06-reverse-shell-tty-wwwdata.png", legende: "Analyse de la session et du shell dans le flux réseau" },
+          { src: "/labs/forensics-ir/07-privesc-sudo-root-clone.png", legende: "Élévation de privilèges et tentative de clonage de Reptile" }
+        ]
+      }
+    },
+    {
       slug: "ssh-hardening",
       title: "SSH Hardening & Fail2ban",
       tag: "Durcissement système & défense (laboratoire)",
@@ -366,10 +396,13 @@ export const toolEvidence: Record<string, string> = {
   'Nmap': '/projets/sentinelx', 'Docker': '/projets',
   'Wireshark': '/labs/mitm-arp-spoofing', 'OWASP ZAP': '/competences/owasp-zap',
   'Wazuh': '/competences/wazuh', 'Active Directory (AD DS)': '/competences/active-directory',
-  'SentinelX': '/projets/sentinelx',
+  'SentinelX': '/projets/sentinelx', 'Burp Suite': '/competences/burp-suite',
+  'GVM': '/competences/gvm', 'Analyse des logs': '/labs/ssh-hardening',
+  'Log analysis': '/labs/ssh-hardening',
 };
 export const plannedSkills = {
   'wazuh': 'Wazuh', 'owasp-zap': 'OWASP ZAP', 'active-directory': 'Active Directory (AD DS)',
+  'burp-suite': 'Burp Suite', 'gvm': 'GVM',
 } as const;
 
 // Parcours : documents publics ajoutés avec l'accord du propriétaire.

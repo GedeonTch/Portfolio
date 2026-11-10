@@ -96,7 +96,7 @@ export default function Hero() {
           >
             <div className="relative">
               {/* Cadre avec bordure animée */}
-              <div className="w-48 h-48 md:w-64 md:h-64 relative border-[var(--border)] border rounded-lg overflow-hidden bg-gradient-to-br from-transparent to-transparent">
+              <div className="w-56 h-64 md:w-72 md:h-80 relative border-[var(--border)] border rounded-lg overflow-hidden bg-[var(--card-bg)]">
                 {/* Photo de profil ou placeholder */}
                 <div className="w-full h-full flex items-center justify-center bg-[var(--card-bg)]">
                   {data.hero.photoPath === '/photo-placeholder.svg' ? (
@@ -111,9 +111,9 @@ export default function Hero() {
                   ) : (
                     <Image
                       src={data.hero.photoPath}
-                      width={320} height={320} priority sizes="(max-width: 768px) 192px, 256px"
+                      fill priority quality={95} sizes="(max-width: 767px) 224px, 288px"
                       alt="Photo de profil"
-                      className="w-full h-full object-cover"
+                      className="object-cover object-[center_30%]"
                     />
                   )}
                 </div>
